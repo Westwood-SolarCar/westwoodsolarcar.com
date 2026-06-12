@@ -157,10 +157,11 @@
   }
 
   .logo {
-    font-size: 1.125rem;
-    font-weight: 800;
-    letter-spacing: 0.1em;
+    font-size: 1.5rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
+    font-family: var(--font-main);
   }
 
   .logo-accent {

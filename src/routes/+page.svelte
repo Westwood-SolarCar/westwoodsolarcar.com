@@ -3,6 +3,14 @@
   import Button from '$lib/components/Button.svelte';
   import Card from '$lib/components/Card.svelte';
   import { fadeUp } from '$lib/actions/scrollAnimation';
+  import { initRoad } from '$lib/utils/road';
+
+  let canvasEl: HTMLCanvasElement;
+
+  onMount(() => {
+    const cleanup = initRoad({ canvas: canvasEl, side: 'left' });
+    return cleanup;
+  });
 
   let animatedMembers = $state(0);
 
@@ -47,12 +55,14 @@
   <meta name="description" content="Westwood Solar Car is a high school student-led engineering team dedicated to competing in the national Solar Car Challenge." />
 </svelte:head>
 
+<canvas bind:this={canvasEl} class="road-canvas"></canvas>
+
 <section class="hero">
   <div class="hero-bg"></div>
   <div class="hero-overlay"></div>
   
   <div class="container hero-content animate-fade-in">
-    <h2 class="subtitle">High School Engineering Excellence</h2>
+    <h2 class="subtitle">High School Engineering</h2>
     <h1 class="title">Westwood<br><span class="text-accent">Solar Car</span></h1>
     <p class="mission-text">Designing, building, and racing solar-powered vehicles for the national Solar Car Challenge.</p>
     <div class="hero-actions">
@@ -94,18 +104,29 @@
 
 <section class="section section-darker cta-section">
   <div class="container text-center" use:fadeUp>
-    <h2>Join the <span class="text-accent">Legacy</span></h2>
+    <h2>Become Part of <span class="text-accent">Our Journey</span></h2>
     <p class="cta-text mx-auto mt-sm mb-md">We are always looking for passionate high school students to join our engineering, design, and business teams.</p>
   </div>
 </section>
 
 <style>
+  .road-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: -1;
+  }
+
   .hero {
     position: relative;
     min-height: 100vh;
     display: flex;
+    flex-direction: column;
+    justify-content: center;
     align-items: center;
-    padding-top: var(--nav-height);
     overflow: hidden;
   }
 

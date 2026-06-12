@@ -29,6 +29,19 @@
 </div>
 
 <style>
+  .card {
+    background-color: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    transition: transform var(--transition-base), box-shadow var(--transition-base);
+  }
+
+  .card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+  }
+
   .card-image-wrapper {
     position: relative;
     width: 100%;
@@ -46,13 +59,12 @@
     transition: transform var(--transition-slow);
   }
 
-  /* Hover effect for image */
-  :global(.card:hover) .card-image {
+  .card:hover .card-image {
     transform: scale(1.05);
   }
 
   .card-content {
-    padding: var(--spacing-sm) 0;
+    padding: var(--spacing-sm);
   }
 
   .card-title {

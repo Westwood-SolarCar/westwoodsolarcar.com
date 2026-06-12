@@ -101,6 +101,10 @@
     width: 100%;
     height: 100%;
     z-index: -2;
+    background-image: url('https://placehold.co/1920x1080/0a0a0c/a0a0a5?text=Car+Hero+Image');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
   }
 
   .hero-image {

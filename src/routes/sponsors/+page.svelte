@@ -23,292 +23,455 @@
     formStatus = 'Your email app should open with a sponsorship draft. Send it from there.';
     target.reset();
   }
+
+  const benefits = [
+    {
+      icon: '◎',
+      title: 'STEM Investment',
+      desc: 'Directly support student engineering education and hands-on learning in your community.'
+    },
+    {
+      icon: '◈',
+      title: 'Brand Visibility',
+      desc: 'Reach parents, educators, students, and industry professionals at regional and national competitions.'
+    },
+    {
+      icon: '◇',
+      title: 'Tax Benefits',
+      desc: 'Contributions may qualify as charitable donations. Consult your tax professional for details.'
+    },
+    {
+      icon: '◉',
+      title: 'Community Impact',
+      desc: 'Partner with an organization that gives back through outreach, workshops, and STEM advocacy.'
+    }
+  ];
 </script>
 
 <svelte:head>
   <title>Sponsors | Westwood Solar Car</title>
 </svelte:head>
 
-<section class="section">
-  <div class="container page-header animate-fade-in">
-    <h1 class="title">Our <span class="text-accent">Partners</span></h1>
-    <p class="subtitle">Empowering the next generation of engineers.</p>
-  </div>
-</section>
-
-<section class="section section-darker">
-  <div class="container text-center">
-    <!-- Platinum Sponsors -->
-    <div class="sponsor-tier mb-xl" use:fadeUp>
-      <h2 class="tier-title platinum">Platinum Sponsors</h2>
-      <div class="sponsor-logos-grid platinum-grid">
-        {#each sponsors.platinum as sponsor}
-          <article class="sponsor-card sponsor-card--platinum">
-            <span class="sponsor-chip">Platinum Partner</span>
-            <div class="sponsor-mark">{sponsor.name.split(' ').map((word) => word[0]).slice(0, 2).join('')}</div>
-            <h3>{sponsor.name}</h3>
-            <p>Supporting our build, outreach, and competition season.</p>
-          </article>
-        {/each}
-      </div>
-    </div>
-
-    <!-- Gold Sponsors -->
-    <div class="sponsor-tier mb-xl" use:fadeUp>
-      <h2 class="tier-title gold">Gold Sponsors</h2>
-      <div class="sponsor-logos-grid gold-grid">
-        {#each sponsors.gold as sponsor}
-          <article class="sponsor-card sponsor-card--gold">
-            <span class="sponsor-chip">Gold Partner</span>
-            <div class="sponsor-mark">{sponsor.name.split(' ').map((word) => word[0]).slice(0, 2).join('')}</div>
-            <h3>{sponsor.name}</h3>
-            <p>Fueling innovation, travel, and team resources.</p>
-          </article>
-        {/each}
-      </div>
-    </div>
-
-    <!-- Silver Sponsors -->
-    <div class="sponsor-tier" use:fadeUp>
-      <h2 class="tier-title silver">Silver Sponsors</h2>
-      <div class="sponsor-logos-grid silver-grid">
-        {#each sponsors.silver as sponsor}
-          <article class="sponsor-card sponsor-card--silver">
-            <span class="sponsor-chip">Silver Partner</span>
-            <div class="sponsor-mark">{sponsor.name.split(' ').map((word) => word[0]).slice(0, 2).join('')}</div>
-            <h3>{sponsor.name}</h3>
-            <p>Helping us grow our lab, tools, and community impact.</p>
-          </article>
-        {/each}
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="section">
+<section class="hero-section">
   <div class="container">
-    <div class="partnership-layout">
-      <div class="partnership-info" use:fadeUp>
-        <h2>Become a <span class="text-accent">Sponsor</span></h2>
-        <p>Partnering with Westwood Solar Car means investing in the future of sustainable technology and engineering excellence.</p>
-        
-        <h3 class="mt-md mb-sm">Benefits of Sponsorship</h3>
-        <ul class="benefits-list">
-          <li>Logo placement on the solar car, apparel, and website</li>
-          <li>Access to our resume book of top engineering students</li>
-          <li>Brand visibility at international competitions</li>
-          <li>Tax-deductible contribution</li>
-        </ul>
-      </div>
+    <p class="hero-label">Partnership</p>
+    <h1 class="hero-title">Our <span class="text-accent">Sponsors</span></h1>
+    <p class="hero-desc">
+      Westwood Solar Car is grateful for the organizations and individuals who make our program possible. Explore sponsorship opportunities below.
+    </p>
+  </div>
+</section>
 
-      <div class="contact-form-container" use:fadeUp>
-        <h3>Contact Us</h3>
-        {#if formStatus}
-          <div class="form-success">
-            {formStatus}
-          </div>
-        {/if}
-        <form class="contact-form mt-sm" onsubmit={handleSubmit}>
-          <div class="form-group">
-            <label for="name">Name / Company</label>
-            <input type="text" id="name" name="name" required />
-          </div>
-          <div class="form-group">
-            <label for="email">Email Address</label>
-            <input type="email" id="email" name="email" required />
-          </div>
-          <div class="form-group">
-            <label for="message">Message</label>
-            <textarea id="message" name="message" rows="4" required></textarea>
-          </div>
-          <Button type="submit">Send Message</Button>
-        </form>
+<!-- Platinum Sponsors -->
+<section class="sponsor-tier section-darker">
+  <div class="container">
+    <div class="tier-header">
+      <span class="tier-badge platinum">Platinum</span>
+      <div class="tier-price">$2,500+</div>
+    </div>
+    <p class="tier-desc">Premier visibility across all materials, websites, and competition presentations. Includes exclusive team liaison and presentation opportunities.</p>
+    <ul class="tier-benefits">
+      <li>Large logo on solar car</li>
+      <li>Premier website placement</li>
+      <li>Featured in all media</li>
+      <li>Team presentation access</li>
+      <li>Dedicated sponsor report</li>
+      <li>Event tickets & recognition</li>
+    </ul>
+    <div class="sponsor-logos">
+      {#each sponsors.platinum as sponsor}
+        <div class="sponsor-logo-item">
+          <div class="logo-placeholder">{sponsor.name.split(' ').map((w) => w[0]).join('').slice(0,2)}</div>
+          <span class="sponsor-name">{sponsor.name}</span>
+        </div>
+      {/each}
+      <div class="sponsor-logo-item empty">
+        <div class="logo-placeholder empty-placeholder">Your Logo</div>
+        <a href="/contact" class="get-in-touch">Get in Touch</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Gold Sponsors -->
+<section class="sponsor-tier section">
+  <div class="container">
+    <div class="tier-header">
+      <span class="tier-badge gold">Gold</span>
+      <div class="tier-price">$1,000–$2,499</div>
+    </div>
+    <p class="tier-desc">Prominent recognition across team materials, website, and competition events with logo placement on robot.</p>
+    <ul class="tier-benefits">
+      <li>Medium logo on solar car</li>
+      <li>Website recognition</li>
+      <li>Social media feature</li>
+      <li>Competition recognition</li>
+      <li>Sponsor update report</li>
+    </ul>
+    <div class="sponsor-logos">
+      {#each sponsors.gold as sponsor}
+        <div class="sponsor-logo-item">
+          <div class="logo-placeholder">{sponsor.name.split(' ').map((w) => w[0]).join('').slice(0,2)}</div>
+          <span class="sponsor-name">{sponsor.name}</span>
+        </div>
+      {/each}
+      <div class="sponsor-logo-item empty">
+        <div class="logo-placeholder empty-placeholder">Your Logo</div>
+        <a href="/contact" class="get-in-touch">Get in Touch</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Silver Sponsors -->
+<section class="sponsor-tier silver-tier">
+  <div class="container">
+    <div class="tier-header">
+      <span class="tier-badge silver">Silver</span>
+      <div class="tier-price">$500–$999</div>
+    </div>
+    <p class="tier-desc">Website recognition and inclusion in all season-end materials and team presentations.</p>
+    <ul class="tier-benefits">
+      <li>Logo on team materials</li>
+      <li>Website recognition</li>
+      <li>Social media mention</li>
+      <li>Season-end report</li>
+    </ul>
+    <div class="sponsor-logos">
+      {#each sponsors.silver as sponsor}
+        <div class="sponsor-logo-item">
+          <div class="logo-placeholder">{sponsor.name.split(' ').map((w) => w[0]).join('').slice(0,2)}</div>
+          <span class="sponsor-name">{sponsor.name}</span>
+        </div>
+      {/each}
+      <div class="sponsor-logo-item empty">
+        <div class="logo-placeholder empty-placeholder">Your Logo</div>
+        <a href="/contact" class="get-in-touch">Get in Touch</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Bronze Sponsors -->
+<section class="sponsor-tier bronze-tier">
+  <div class="container">
+    <div class="tier-header">
+      <span class="tier-badge bronze">Bronze</span>
+      <div class="tier-price">$100–$499</div>
+    </div>
+    <p class="tier-desc">Website recognition and acknowledgment in team materials and communications.</p>
+    <ul class="tier-benefits">
+      <li>Website recognition</li>
+      <li>Thank-you acknowledgment</li>
+      <li>Season-end mention</li>
+    </ul>
+    <div class="sponsor-logos">
+      {#each sponsors.bronze as sponsor}
+        <div class="sponsor-logo-item">
+          <div class="logo-placeholder">{sponsor.name.split(' ').map((w) => w[0]).join('').slice(0,2)}</div>
+          <span class="sponsor-name">{sponsor.name}</span>
+        </div>
+      {/each}
+      <div class="sponsor-logo-item empty">
+        <div class="logo-placeholder empty-placeholder">Your Logo</div>
+        <a href="/contact" class="get-in-touch">Get in Touch</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Why Sponsor Section -->
+<section class="section why-sponsor-section">
+  <div class="container">
+    <h2 class="section-title text-center mb-lg">Why Sponsor <span class="text-accent">Westwood?</span></h2>
+    <div class="benefits-grid">
+      {#each benefits as benefit, i}
+        <div class="benefit-card" use:fadeUp style="animation-delay: {i * 0.1}s">
+          <div class="benefit-icon">{benefit.icon}</div>
+          <h3>{benefit.title}</h3>
+          <p>{benefit.desc}</p>
+        </div>
+      {/each}
+    </div>
+  </div>
+</section>
+
+<!-- Become a Sponsor CTA -->
+<section class="section cta-section">
+  <div class="container">
+    <div class="cta-content text-center" use:fadeUp>
+      <h2>Become a <span class="text-accent">Sponsor</span></h2>
+      <p class="cta-text">
+        Interested in partnering with Westwood Solar Car? We'd love to discuss how we can work together to advance STEM education and solar vehicle engineering.
+      </p>
+      <div class="cta-buttons">
+        <Button href="/contact">Contact Us</Button>
+        <a href="mailto:contact@westwoodracing.com" class="email-link">Send an Email</a>
       </div>
     </div>
   </div>
 </section>
 
 <style>
-  .page-header {
+  .hero-section {
+    padding: var(--spacing-xl) 0 var(--spacing-lg);
     text-align: center;
-    max-width: 800px;
-    margin: 0 auto;
   }
 
-  .title {
+  .hero-label {
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--text-secondary);
+    margin-bottom: var(--spacing-xs);
+  }
+
+  .hero-title {
+    font-size: clamp(2.5rem, 5vw, 4rem);
     margin-bottom: var(--spacing-sm);
   }
 
-  .subtitle {
-    font-size: 1.25rem;
+  .hero-desc {
+    font-size: 1.125rem;
     color: var(--text-secondary);
+    max-width: 600px;
+    margin: 0 auto;
   }
 
-  .tier-title {
-    font-size: 1.5rem;
+  .sponsor-tier {
+    padding: var(--spacing-lg) 0;
+    border-bottom: 1px solid var(--border-subtle);
+  }
+
+  .sponsor-tier:last-of-type {
+    border-bottom: none;
+  }
+
+  .sponsor-tier.section-darker {
+    background-color: var(--bg-section-alt);
+  }
+
+  .tier-header {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-md);
+  }
+
+  .tier-badge {
+    font-size: 0.75rem;
+    font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.1em;
-    margin-bottom: var(--spacing-md);
-    padding-bottom: var(--spacing-xs);
-    display: inline-block;
-    border-bottom: 2px solid;
+    padding: 0.35rem 0.75rem;
+    border-radius: var(--border-radius);
   }
 
-  .tier-title.platinum { border-color: #e5e4e2; color: #e5e4e2; }
-  .tier-title.gold { border-color: #ffd700; color: #ffd700; }
-  .tier-title.silver { border-color: #c0c0c0; color: #c0c0c0; }
-
-  .sponsor-logos-grid {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: var(--spacing-lg);
-    align-items: center;
+  .tier-badge.platinum {
+    background-color: var(--accent-orange);
+    color: white;
   }
 
-  .sponsor-card {
-    width: 100%;
-    max-width: 320px;
-    min-height: 180px;
-    padding: var(--spacing-md);
-    border: 1px solid var(--border-subtle);
-    border-radius: 18px;
-    background-color: var(--bg-surface);
-    box-shadow: 0 12px 24px rgba(15, 23, 42, 0.08);
-    text-align: left;
-    transition: transform var(--transition-base), border-color var(--transition-base), box-shadow var(--transition-base);
+  .tier-badge.gold {
+    background: linear-gradient(135deg, var(--accent-orange), #ff8c00);
+    color: white;
   }
 
-  :global([data-theme="dark"]) .sponsor-card {
-    background: linear-gradient(145deg, rgba(255, 255, 255, 0.035), rgba(255, 255, 255, 0.01));
-    box-shadow: 0 18px 35px rgba(0, 0, 0, 0.24);
+  .tier-badge.silver {
+    background: var(--bg-surface-elevated);
+    color: var(--text-primary);
+    border: 1px solid var(--border-strong);
   }
 
-  :global([data-theme="light"]) .sponsor-card {
-    background: linear-gradient(145deg, rgba(255, 255, 255, 0.98), rgba(248, 250, 252, 0.96));
-    box-shadow: 0 12px 24px rgba(15, 23, 42, 0.08);
-  }
-
-  .sponsor-card:hover {
-    transform: translateY(-4px);
-    border-color: var(--accent-orange);
-    box-shadow: 0 18px 30px rgba(15, 23, 42, 0.14);
-  }
-
-  .sponsor-chip {
-    display: inline-block;
-    font-size: 0.75rem;
-    text-transform: uppercase;
-    letter-spacing: 0.18em;
-    color: var(--accent-orange);
-    margin-bottom: 0.75rem;
-  }
-
-  .sponsor-mark {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 3.25rem;
-    height: 3.25rem;
-    border-radius: 999px;
-    background: linear-gradient(135deg, var(--accent-orange), #ffb36b);
-    color: #111;
-    font-weight: 800;
-    letter-spacing: 0.08em;
-    margin-bottom: 0.75rem;
-  }
-
-  .sponsor-card h3 {
-    margin-bottom: 0.35rem;
-    font-size: 1.1rem;
-  }
-
-  .sponsor-card p {
-    margin: 0;
+  .tier-badge.bronze {
+    background: var(--bg-surface);
     color: var(--text-secondary);
-    font-size: 0.95rem;
+    border: 1px solid var(--border-subtle);
   }
 
-  .platinum-grid .sponsor-card { min-height: 210px; }
-  .gold-grid .sponsor-card { min-height: 190px; }
-  .silver-grid .sponsor-card { min-height: 170px; }
-
-  .partnership-layout {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: var(--spacing-xl);
+  .tier-price {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--text-primary);
   }
 
-  @media (max-width: 768px) {
-    .partnership-layout {
-      grid-template-columns: 1fr;
-    }
+  .tier-desc {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    margin-bottom: var(--spacing-md);
+    max-width: 700px;
+    line-height: 1.6;
   }
 
-  .benefits-list {
+  .tier-benefits {
     list-style: none;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-lg);
   }
 
-  .benefits-list li {
+  .tier-benefits li {
     position: relative;
     padding-left: 1.5rem;
-    margin-bottom: 0.5rem;
+    font-size: 0.95rem;
     color: var(--text-secondary);
   }
 
-  .benefits-list li::before {
-    content: '→';
+  .tier-benefits li::before {
+    content: '✓';
     position: absolute;
     left: 0;
     color: var(--accent-orange);
     font-weight: bold;
   }
 
-  .contact-form-container {
-    background-color: var(--bg-surface);
-    padding: var(--spacing-lg);
-    border-radius: 4px;
-    border: 1px solid var(--border-subtle);
+  .sponsor-logos {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: var(--spacing-md);
   }
 
-  .form-group {
-    margin-bottom: var(--spacing-md);
+  .sponsor-logo-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-xs);
   }
 
-  .form-group label {
-    display: block;
-    margin-bottom: 0.5rem;
-    font-size: 0.875rem;
-    font-weight: 600;
-    color: var(--text-secondary);
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-  }
-
-  .form-group input,
-  .form-group textarea {
+  .logo-placeholder {
     width: 100%;
-    padding: 0.75rem 1rem;
-    background-color: var(--bg-main);
-    border: 1px solid var(--border-strong);
-    border-radius: 2px;
-    color: var(--text-primary);
-    font-family: var(--font-sans);
-    transition: border-color var(--transition-fast);
+    aspect-ratio: 3 / 2;
+    background: var(--bg-surface-elevated);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--border-radius);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 1.5rem;
+    color: var(--text-secondary);
+    transition: transform var(--transition-base), border-color var(--transition-base);
   }
 
-  .form-group input:focus,
-  .form-group textarea:focus {
-    outline: none;
+  .logo-placeholder:not(.empty-placeholder):hover {
+    transform: translateY(-4px);
     border-color: var(--accent-orange);
   }
 
-  .form-success {
-    background-color: rgba(46, 204, 113, 0.1);
-    border-left: 4px solid #2ecc71;
-    padding: 1rem;
-    margin-bottom: 1rem;
-    color: #2ecc71;
+  .empty-placeholder {
+    background: var(--bg-surface);
+    border-style: dashed;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--text-tertiary);
+  }
+
+  .sponsor-name {
+    font-size: 0.875rem;
     font-weight: 500;
+    color: var(--text-secondary);
+    text-align: center;
+  }
+
+  .get-in-touch {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--accent-orange);
+    text-decoration: none;
+    transition: color var(--transition-fast);
+  }
+
+  .get-in-touch:hover {
+    color: var(--accent-orange-hover);
+    text-decoration: underline;
+  }
+
+  .why-sponsor-section {
+    background-color: var(--bg-section-alt);
+  }
+
+  .section-title {
+    font-size: clamp(2rem, 4vw, 3rem);
+  }
+
+  .benefits-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: var(--spacing-lg);
+  }
+
+  .benefit-card {
+    background-color: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--border-radius);
+    padding: var(--spacing-lg);
+    text-align: center;
+    transition: transform var(--transition-base), box-shadow var(--transition-base), border-color var(--transition-base);
+  }
+
+  .benefit-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+    border-color: var(--accent-orange);
+  }
+
+  .benefit-icon {
+    font-size: 2.5rem;
+    margin-bottom: var(--spacing-sm);
+    color: var(--accent-orange);
+    line-height: 1;
+  }
+
+  .benefit-card h3 {
+    font-size: 1.25rem;
+    margin-bottom: var(--spacing-sm);
+  }
+
+  .benefit-card p {
+    font-size: 0.95rem;
+    margin: 0;
+    color: var(--text-secondary);
+    line-height: 1.6;
+  }
+
+  .cta-section {
+    background-color: var(--bg-section-alt);
+  }
+
+  .cta-content {
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  .cta-content h2 {
+    margin-bottom: var(--spacing-sm);
+  }
+
+  .cta-text {
+    font-size: 1.125rem;
+    color: var(--text-secondary);
+    margin-bottom: var(--spacing-lg);
+  }
+
+  .cta-buttons {
+    display: flex;
+    gap: var(--spacing-md);
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  .email-link {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: color var(--transition-fast);
+  }
+
+  .email-link:hover {
+    color: var(--accent-orange);
   }
 </style>

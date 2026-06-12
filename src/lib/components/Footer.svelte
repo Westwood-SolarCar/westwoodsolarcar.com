@@ -5,8 +5,6 @@
       <p class="mission">Engineering Excellence.<br>Pushing the boundaries of solar technology.</p>
       <div class="social-links">
         <a href="https://www.instagram.com/" target="_blank" rel="noreferrer" class="social-link">Instagram</a>
-        <a href="https://www.linkedin.com/" target="_blank" rel="noreferrer" class="social-link">LinkedIn</a>
-        <a href="https://x.com/" target="_blank" rel="noreferrer" class="social-link">X / Twitter</a>
       </div>
     </div>
     
@@ -26,7 +24,7 @@
         <li><a href="mailto:contact@westwoodracing.com">contact@westwoodracing.com</a></li>
         <li>Westwood Engineering Center</li>
         <li>123 Solar Way</li>
-        <li>Tech City, TX 78701</li>
+        <li>Austin, TX 78759</li>
       </ul>
     </div>
   </div>
@@ -53,7 +51,7 @@
     display: grid;
     grid-template-columns: 2fr 1fr 1fr;
     gap: var(--spacing-lg);
-    margin-bottom: var(--spacing-lg);
+    margin-bottom: var(--spacing-xl);
   }
 
   @media (max-width: 768px) {
@@ -68,8 +66,8 @@
     margin-bottom: var(--spacing-sm);
   }
 
-  .logo-w { font-size: 1.8rem; }
-  .logo-accent { color: var(--accent-orange); }
+  .logo-w { font-size: 1.5rem; font-weight: 600; font-family: var(--font-main); }
+  .logo-accent { color: var(--accent-orange); text-transform: uppercase; }
 
   .mission {
     color: var(--text-tertiary);

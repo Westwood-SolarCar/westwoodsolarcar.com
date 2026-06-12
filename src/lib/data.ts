@@ -1,18 +1,29 @@
+const getMemberImage = (name: string) => {
+  const firstName = name.trim().split(/\s+/)[0].toLowerCase().replace(/[^a-z0-9]/g, '');
+
+return [
+  `/team-images/${firstName}.png`,
+  `/team-images/${firstName}.jpg`,
+  `/team-images/${firstName}.jpeg`,
+  `/team-images/placeholder.svg`
+];
+};
+
 export const teamMembers = [
-  { name: 'Samuel Hana', position: 'Electrical/Design/Build/Data', category: 'Electrical', image: 'https://placehold.co/400x500/333333/a0a0a5?text=Samuel+Hana' },
-  { name: 'Owen Neal', position: 'Design/CAD/Build/Driver', category: 'Design & CAD', image: 'https://placehold.co/400x500/333333/a0a0a5?text=Owen+Neal' },
-  { name: 'Ehan Maknoja', position: 'CAD/Build', category: 'Design & CAD', image: 'https://placehold.co/400x500/333333/a0a0a5?text=Ehan+Maknoja' },
-  { name: 'Jackson Wear', position: 'Finance/Fundraising/Build/Driver', category: 'Finance & Ops', image: 'https://placehold.co/400x500/333333/a0a0a5?text=Jackson+Wear' },
-  { name: 'Shiv Mahajan', position: 'Electrical/Design/CAD', category: 'Electrical', image: 'https://placehold.co/400x500/333333/a0a0a5?text=Shiv+Mahajan' },
-  { name: 'Kylie Xu*', position: 'CAD/Build', category: 'Design & CAD', image: 'https://placehold.co/400x500/333333/a0a0a5?text=Kylie+Xu' },
-  { name: 'Aaron Hua', position: 'Electrical/Design/Data/Driver', category: 'Electrical', image: 'https://placehold.co/400x500/333333/a0a0a5?text=Aaron+Hua' },
-  { name: 'Carter Boeck', position: 'Build/Design', category: 'Build', image: 'https://placehold.co/400x500/333333/a0a0a5?text=Carter+Boeck' },
-  { name: 'Lucas Xu', position: 'Design/CAD/Build', category: 'Design & CAD', image: 'https://placehold.co/400x500/333333/a0a0a5?text=Lucas+Xu' },
-  { name: 'Ishaan Desai', position: 'Finance/Fundraising', category: 'Finance & Ops', image: 'https://placehold.co/400x500/333333/a0a0a5?text=Ishaan+Desai' },
-  { name: 'Benny Provost', position: 'Electrical/Data', category: 'Electrical', image: 'https://placehold.co/400x500/333333/a0a0a5?text=Benny+Provost' },
-  { name: 'Peiyi Wang', position: 'Electrical/Data/CAD', category: 'Electrical', image: 'https://placehold.co/400x500/333333/a0a0a5?text=Peiyi+Wang' },
-  { name: 'Joshua Hana', position: 'Build/Design', category: 'Build', image: 'https://placehold.co/400x500/333333/a0a0a5?text=Joshua+Hana' },
-  { name: 'Alyna Lee', position: 'Finance/Fundraising', category: 'Finance & Ops', image: 'https://placehold.co/400x500/333333/a0a0a5?text=Alyna+Lee' }
+  { name: 'Jackson', position: 'Finance/Fundraising/Build/Driver', category: 'Finance & Ops', image: getMemberImage('Jackson') },
+  { name: 'Ishaan', position: 'Finance/Fundraising', category: 'Finance & Ops', image: getMemberImage('Ishaan') },
+  { name: 'Samuel', position: 'Electrical/Design/Build/Data', category: 'Electrical', image: getMemberImage('Samuel') },
+  { name: 'Owen', position: 'Design/CAD/Build/Driver', category: 'Design & CAD', image: getMemberImage('Owen') },
+  { name: 'Ehan', position: 'CAD/Build', category: 'Design & CAD', image: getMemberImage('Ehan') },
+  { name: 'Shiv', position: 'Electrical/Design/CAD', category: 'Electrical', image: getMemberImage('Shiv') },
+  { name: 'Kylie', position: 'CAD/Build', category: 'Design & CAD', image: getMemberImage('Kylie') },
+  { name: 'Aaron', position: 'Electrical/Design/Data/Driver', category: 'Electrical', image: getMemberImage('Aaron') },
+  { name: 'Carter', position: 'Build/Design', category: 'Build', image: getMemberImage('Carter') },
+  { name: 'Lucas', position: 'Design/CAD/Build', category: 'Design & CAD', image: getMemberImage('Lucas') },
+  { name: 'Benny', position: 'Electrical/Data', category: 'Electrical', image: getMemberImage('Benny') },
+  { name: 'Peiyi', position: 'Electrical/Data/CAD', category: 'Electrical', image: getMemberImage('Peiyi') },
+  { name: 'Joshua', position: 'Build/Design', category: 'Build', image: getMemberImage('Joshua') },
+  { name: 'Alyna', position: 'Finance/Fundraising', category: 'Finance & Ops', image: getMemberImage('Alyna') }
 ];
 
 export const sponsors = {
@@ -27,6 +38,10 @@ export const sponsors = {
   silver: [
     { id: 's1', name: 'SolidWorks', logo: 'https://placehold.co/200x100/333333/a0a0a5?text=SolidWorks', link: '#' },
     { id: 's2', name: 'Altium', logo: 'https://placehold.co/200x100/333333/a0a0a5?text=Altium', link: '#' }
+  ],
+  bronze: [
+    { id: 'b1', name: 'Local Hardware Store', logo: 'https://placehold.co/180x90/333333/a0a0a5?text=Hardware', link: '#' },
+    { id: 'b2', name: 'Community Bank', logo: 'https://placehold.co/180x90/333333/a0a0a5?text=Community', link: '#' }
   ]
 };
 
