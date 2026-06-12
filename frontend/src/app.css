@@ -48,23 +48,11 @@
   --text-tertiary: #868e96;
   --accent-orange: #cc5500;
   --accent-orange-hover: #b34a00;
-  
-  /* Borders */
-  --border-subtle: rgba(0, 0, 0, 0.1);
-  --border-strong: rgba(0, 0, 0, 0.2);
-}
-  --max-width: 1280px;
-  --nav-height: 80px;
-  --spacing-xs: 0.5rem;
-  --spacing-sm: 1rem;
-  --spacing-md: 2rem;
-  --spacing-lg: 4rem;
-  --spacing-xl: 8rem;
+  --accent-silver: #4b5563;
 
-  /* Transitions */
-  --transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-  --transition-base: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  --transition-slow: 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  /* Borders */
+  --border-subtle: rgba(0, 0, 0, 0.08);
+  --border-strong: rgba(0, 0, 0, 0.14);
 }
 
 /* Reset & Base Styles */
@@ -85,8 +73,11 @@ html {
 
 body {
   min-height: 100vh;
+  margin: 0;
   display: flex;
   flex-direction: column;
+  background-color: var(--bg-main);
+  color: var(--text-primary);
 }
 
 main {
@@ -166,7 +157,7 @@ a:hover {
   text-transform: uppercase;
   border: none;
   cursor: pointer;
-  transition: all var(--transition-fast);
+  transition: background-color var(--transition-fast), color var(--transition-fast), border-color var(--transition-fast), box-shadow var(--transition-fast);
   border-radius: 2px;
 }
 
@@ -176,8 +167,10 @@ a:hover {
 }
 
 .btn-primary:hover {
-  background-color: var(--accent-orange-hover);
-  transform: translateY(-1px);
+  background-color: var(--bg-surface-elevated);
+  color: var(--text-primary);
+  border: 1px solid var(--accent-orange);
+  box-shadow: none;
 }
 
 .btn-outline {
@@ -187,8 +180,9 @@ a:hover {
 }
 
 .btn-outline:hover {
-  background-color: rgba(255, 255, 255, 0.05);
-  border-color: var(--text-primary);
+  background-color: var(--bg-surface-elevated);
+  border-color: var(--accent-orange);
+  color: var(--text-primary);
 }
 
 /* Cards */

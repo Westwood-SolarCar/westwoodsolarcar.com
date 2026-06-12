@@ -7,8 +7,20 @@
 
   function handleSubmit(event: Event) {
     event.preventDefault();
-    formStatus = 'Thank you! Your message has been sent. We will be in touch shortly.';
+
     const target = event.target as HTMLFormElement;
+    const formData = new FormData(target);
+    const name = String(formData.get('name') || 'A sponsor contact').trim();
+    const email = String(formData.get('email') || '');
+    const message = String(formData.get('message') || '').trim();
+
+    const subject = encodeURIComponent(`Sponsorship inquiry from ${name}`);
+    const body = encodeURIComponent(
+      `Name / Company: ${name}\nEmail: ${email}\n\nMessage:\n${message}`
+    );
+
+    window.location.href = `mailto:contact@westwoodracing.com?subject=${subject}&body=${body}`;
+    formStatus = 'Your email app should open with a sponsorship draft. Send it from there.';
     target.reset();
   }
 </script>
@@ -31,9 +43,12 @@
       <h2 class="tier-title platinum">Platinum Sponsors</h2>
       <div class="sponsor-logos-grid platinum-grid">
         {#each sponsors.platinum as sponsor}
-          <a href={sponsor.link} class="sponsor-logo-wrapper" target="_blank" rel="noopener noreferrer">
-            <img src={sponsor.logo} alt={sponsor.name} class="sponsor-logo" />
-          </a>
+          <article class="sponsor-card sponsor-card--platinum">
+            <span class="sponsor-chip">Platinum Partner</span>
+            <div class="sponsor-mark">{sponsor.name.split(' ').map((word) => word[0]).slice(0, 2).join('')}</div>
+            <h3>{sponsor.name}</h3>
+            <p>Supporting our build, outreach, and competition season.</p>
+          </article>
         {/each}
       </div>
     </div>
@@ -43,9 +58,12 @@
       <h2 class="tier-title gold">Gold Sponsors</h2>
       <div class="sponsor-logos-grid gold-grid">
         {#each sponsors.gold as sponsor}
-          <a href={sponsor.link} class="sponsor-logo-wrapper" target="_blank" rel="noopener noreferrer">
-            <img src={sponsor.logo} alt={sponsor.name} class="sponsor-logo" />
-          </a>
+          <article class="sponsor-card sponsor-card--gold">
+            <span class="sponsor-chip">Gold Partner</span>
+            <div class="sponsor-mark">{sponsor.name.split(' ').map((word) => word[0]).slice(0, 2).join('')}</div>
+            <h3>{sponsor.name}</h3>
+            <p>Fueling innovation, travel, and team resources.</p>
+          </article>
         {/each}
       </div>
     </div>
@@ -55,9 +73,12 @@
       <h2 class="tier-title silver">Silver Sponsors</h2>
       <div class="sponsor-logos-grid silver-grid">
         {#each sponsors.silver as sponsor}
-          <a href={sponsor.link} class="sponsor-logo-wrapper" target="_blank" rel="noopener noreferrer">
-            <img src={sponsor.logo} alt={sponsor.name} class="sponsor-logo" />
-          </a>
+          <article class="sponsor-card sponsor-card--silver">
+            <span class="sponsor-chip">Silver Partner</span>
+            <div class="sponsor-mark">{sponsor.name.split(' ').map((word) => word[0]).slice(0, 2).join('')}</div>
+            <h3>{sponsor.name}</h3>
+            <p>Helping us grow our lab, tools, and community impact.</p>
+          </article>
         {/each}
       </div>
     </div>
@@ -145,36 +166,72 @@
     align-items: center;
   }
 
-  .sponsor-logo-wrapper {
-    background-color: var(--bg-surface-elevated);
+  .sponsor-card {
+    width: 100%;
+    max-width: 320px;
+    min-height: 180px;
+    padding: var(--spacing-md);
     border: 1px solid var(--border-subtle);
-    border-radius: 4px;
-    display: flex;
+    border-radius: 18px;
+    background-color: var(--bg-surface);
+    box-shadow: 0 12px 24px rgba(15, 23, 42, 0.08);
+    text-align: left;
+    transition: transform var(--transition-base), border-color var(--transition-base), box-shadow var(--transition-base);
+  }
+
+  :global([data-theme="dark"]) .sponsor-card {
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.035), rgba(255, 255, 255, 0.01));
+    box-shadow: 0 18px 35px rgba(0, 0, 0, 0.24);
+  }
+
+  :global([data-theme="light"]) .sponsor-card {
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.98), rgba(248, 250, 252, 0.96));
+    box-shadow: 0 12px 24px rgba(15, 23, 42, 0.08);
+  }
+
+  .sponsor-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--accent-orange);
+    box-shadow: 0 18px 30px rgba(15, 23, 42, 0.14);
+  }
+
+  .sponsor-chip {
+    display: inline-block;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--accent-orange);
+    margin-bottom: 0.75rem;
+  }
+
+  .sponsor-mark {
+    display: inline-flex;
     align-items: center;
     justify-content: center;
-    transition: transform var(--transition-base), border-color var(--transition-base);
+    width: 3.25rem;
+    height: 3.25rem;
+    border-radius: 999px;
+    background: linear-gradient(135deg, var(--accent-orange), #ffb36b);
+    color: #111;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    margin-bottom: 0.75rem;
   }
 
-  .sponsor-logo-wrapper:hover {
-    transform: translateY(-5px);
-    border-color: var(--border-strong);
+  .sponsor-card h3 {
+    margin-bottom: 0.35rem;
+    font-size: 1.1rem;
   }
 
-  .platinum-grid .sponsor-logo-wrapper { width: 300px; height: 150px; padding: var(--spacing-md); }
-  .gold-grid .sponsor-logo-wrapper { width: 250px; height: 125px; padding: var(--spacing-sm); }
-  .silver-grid .sponsor-logo-wrapper { width: 200px; height: 100px; padding: var(--spacing-sm); }
-
-  .sponsor-logo {
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: contain;
-    filter: grayscale(100%) opacity(0.8);
-    transition: filter var(--transition-base);
+  .sponsor-card p {
+    margin: 0;
+    color: var(--text-secondary);
+    font-size: 0.95rem;
   }
 
-  .sponsor-logo-wrapper:hover .sponsor-logo {
-    filter: grayscale(0%) opacity(1);
-  }
+  .platinum-grid .sponsor-card { min-height: 210px; }
+  .gold-grid .sponsor-card { min-height: 190px; }
+  .silver-grid .sponsor-card { min-height: 170px; }
 
   .partnership-layout {
     display: grid;

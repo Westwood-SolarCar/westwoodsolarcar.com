@@ -4,9 +4,9 @@
       <h2 class="logo"><span class="logo-w">W</span>ESTWOOD <span class="logo-accent">Solar Car</span></h2>
       <p class="mission">Engineering Excellence.<br>Pushing the boundaries of solar technology.</p>
       <div class="social-links">
-        <a href="#" class="social-link">Instagram</a>
-        <a href="#" class="social-link">LinkedIn</a>
-        <a href="#" class="social-link">Twitter</a>
+        <a href="https://www.instagram.com/" target="_blank" rel="noreferrer" class="social-link">Instagram</a>
+        <a href="https://www.linkedin.com/" target="_blank" rel="noreferrer" class="social-link">LinkedIn</a>
+        <a href="https://x.com/" target="_blank" rel="noreferrer" class="social-link">X / Twitter</a>
       </div>
     </div>
     
@@ -35,8 +35,8 @@
     <div class="container bottom-container">
       <p>&copy; {new Date().getFullYear()} Westwood Solar Car Racing. All rights reserved.</p>
       <div class="legal-links">
-        <a href="#">Privacy Policy</a>
-        <a href="#">Terms of Service</a>
+        <a href="mailto:contact@westwoodracing.com">Contact</a>
+        <a href="/sponsors">Sponsor Us</a>
       </div>
     </div>
   </div>
@@ -44,7 +44,7 @@
 
 <style>
   .footer {
-    background-color: #050505;
+    background-color: var(--bg-section-alt);
     border-top: 1px solid var(--border-subtle);
     padding-top: var(--spacing-lg);
   }
@@ -86,6 +86,11 @@
     text-transform: uppercase;
     letter-spacing: 0.05em;
     font-weight: 600;
+    color: var(--text-secondary);
+  }
+
+  .social-link:hover {
+    color: var(--accent-orange);
   }
 
   .footer-links-group h3 {
@@ -114,6 +119,7 @@
   }
 
   .footer-bottom {
+    background-color: var(--bg-main);
     border-top: 1px solid var(--border-subtle);
     padding: var(--spacing-sm) 0;
   }

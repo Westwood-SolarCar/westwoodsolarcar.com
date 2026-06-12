@@ -1,24 +1,33 @@
 <script lang="ts">
+  import { onMount } from 'svelte';
   import { page } from '$app/stores';
-  
+
   let isScrolled = $state(false);
   let isMobileMenuOpen = $state(false);
   let theme = $state('dark');
-  
-  // Listen to scroll to add a background when scrolling
-  if (typeof window !== 'undefined') {
-    window.addEventListener('scroll', () => {
-      isScrolled = window.scrollY > 20;
-    });
 
-    // Initialize theme based on preference or local storage
+  onMount(() => {
     const savedTheme = localStorage.getItem('theme');
-    if (savedTheme) {
-      theme = savedTheme;
-    } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
-      theme = 'light';
-    }
-  }
+    const preferredTheme = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+    theme = savedTheme || preferredTheme;
+
+    const applyTheme = () => {
+      document.documentElement.setAttribute('data-theme', theme);
+      localStorage.setItem('theme', theme);
+    };
+
+    const handleScroll = () => {
+      isScrolled = window.scrollY > 20;
+    };
+
+    applyTheme();
+    handleScroll();
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  });
 
   $effect(() => {
     if (typeof document !== 'undefined') {
@@ -135,7 +144,7 @@
   }
 
   .navbar.scrolled {
-    background-color: rgba(26, 26, 26, 0.95);
+    background-color: var(--nav-bg);
     backdrop-filter: blur(10px);
     border-bottom: 1px solid var(--border-subtle);
   }

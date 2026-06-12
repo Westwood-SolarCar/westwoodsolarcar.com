@@ -1,14 +1,27 @@
 <script lang="ts">
+  import { onMount } from 'svelte';
   import Button from '$lib/components/Button.svelte';
   import Card from '$lib/components/Card.svelte';
   import { fadeUp } from '$lib/actions/scrollAnimation';
-  
-  const stats = [
-    { label: 'Team Members', value: '14' },
-    { label: 'Track Miles', value: '500+' },
-    { label: 'Solar Arrays Designed', value: '3' },
-    { label: 'Years Active', value: '2' }
-  ];
+
+  let animatedMembers = $state(0);
+
+  onMount(() => {
+    const target = 14;
+    const duration = 1400;
+    const start = performance.now();
+
+    const step = (now: number) => {
+      const progress = Math.min((now - start) / duration, 1);
+      animatedMembers = Math.round(target * progress);
+
+      if (progress < 1) {
+        requestAnimationFrame(step);
+      }
+    };
+
+    requestAnimationFrame(step);
+  });
 
   const highlights = [
     {
@@ -51,13 +64,11 @@
 
 <section class="section section-darker">
   <div class="container">
-    <div class="stats-grid">
-      {#each stats as stat}
-        <div class="stat-item" use:fadeUp>
-          <div class="stat-value">{stat.value}</div>
-          <div class="stat-label">{stat.label}</div>
-        </div>
-      {/each}
+    <div class="stats-showcase" use:fadeUp>
+      <p class="stats-kicker">Team Momentum</p>
+      <div class="stats-number">{animatedMembers}</div>
+      <h2 class="stats-title">Active team members building the next race-ready solar car.</h2>
+      <p class="stats-copy">From design and fabrication to testing and outreach, every member contributes to the mission.</p>
     </div>
   </div>
 </section>
@@ -85,7 +96,6 @@
   <div class="container text-center" use:fadeUp>
     <h2>Join the <span class="text-accent">Legacy</span></h2>
     <p class="cta-text mx-auto mt-sm mb-md">We are always looking for passionate high school students to join our engineering, design, and business teams.</p>
-    <Button href="/team">Become a Member</Button>
   </div>
 </section>
 
@@ -155,27 +165,45 @@
     }
   }
 
-  .stats-grid {
+  .stats-showcase {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: var(--spacing-lg);
+    gap: var(--spacing-sm);
+    justify-items: center;
     text-align: center;
+    padding: clamp(2rem, 6vw, 4rem);
+    border: 1px solid var(--border-subtle);
+    border-radius: 24px;
+    background:
+      linear-gradient(145deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.02));
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.18);
   }
 
-  .stat-value {
-    font-size: 3.5rem;
-    font-weight: 800;
-    color: var(--accent-orange);
-    line-height: 1;
-    margin-bottom: var(--spacing-xs);
-  }
-
-  .stat-label {
-    font-size: 0.875rem;
+  .stats-kicker {
+    font-size: 0.85rem;
     text-transform: uppercase;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.2em;
+    color: var(--accent-orange);
+    margin-bottom: 0;
+  }
+
+  .stats-number {
+    font-size: clamp(4rem, 12vw, 7rem);
+    line-height: 1;
+    font-weight: 800;
+    color: var(--text-primary);
+  }
+
+  .stats-title {
+    max-width: 780px;
+    margin-bottom: 0;
+    font-size: clamp(1.35rem, 3vw, 2rem);
+  }
+
+  .stats-copy {
+    max-width: 640px;
+    margin-bottom: 0;
     color: var(--text-secondary);
-    font-weight: 600;
+    font-size: 1.05rem;
   }
 
   .section-header {

@@ -60,18 +60,14 @@
         </div>
         <div class="step" use:fadeUp>
           <div class="step-number">2</div>
-          <h3>Submit Application</h3>
-          <p>Tell us about your interests and background.</p>
+          <h3>Meet the Team</h3>
+          <p>Learn about our members and how we work together.</p>
         </div>
         <div class="step" use:fadeUp>
           <div class="step-number">3</div>
-          <h3>Interview</h3>
-          <p>A short chat to get to know you better.</p>
+          <h3>Get Involved</h3>
+          <p>Reach out to start contributing to the team.</p>
         </div>
-      </div>
-      
-      <div use:fadeUp>
-        <Button href="mailto:recruiting@westwoodsolarcar.com">Apply Now</Button>
       </div>
     </div>
   </div>
