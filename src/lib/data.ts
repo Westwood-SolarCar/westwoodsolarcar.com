@@ -1,12 +1,14 @@
+const memberImageMap: Record<string, string> = {
+  ishaan: '/team-images/ishaan.png',
+  jackson: '/team-images/jackson.png',
+  owen: '/team-images/owen.png',
+  samuel: '/team-images/samuel.png'
+};
+
 const getMemberImage = (name: string) => {
   const firstName = name.trim().split(/\s+/)[0].toLowerCase().replace(/[^a-z0-9]/g, '');
 
-return [
-  `/team-images/${firstName}.png`,
-  `/team-images/${firstName}.jpg`,
-  `/team-images/${firstName}.jpeg`,
-  `/team-images/placeholder.svg`
-];
+  return [memberImageMap[firstName] ?? '/team-images/placeholder.svg'];
 };
 
 export const teamMembers = [
