@@ -18,7 +18,7 @@ export const teamMembers = [
   { name: 'Owen', position: 'Design/CAD/Build/Driver', category: 'Design & CAD', image: getMemberImage('Owen') },
   { name: 'Ehan', position: 'CAD/Build', category: 'Design & CAD', image: getMemberImage('Ehan') },
   { name: 'Shiv', position: 'Electrical/Design/CAD', category: 'Electrical', image: getMemberImage('Shiv') },
-  { name: 'Kylie', position: 'CAD/Build', category: 'Design & CAD', image: getMemberImage('Kylie') },
+  { name: 'Kylie', position: 'CAD/Build/Data', category: 'Design & CAD', image: getMemberImage('Kylie') },
   { name: 'Aaron', position: 'Electrical/Design/Data/Driver', category: 'Electrical', image: getMemberImage('Aaron') },
   { name: 'Carter', position: 'Build/Design', category: 'Build', image: getMemberImage('Carter') },
   { name: 'Lucas', position: 'Design/CAD/Build', category: 'Design & CAD', image: getMemberImage('Lucas') },
