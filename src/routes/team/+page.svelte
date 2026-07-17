@@ -1,153 +1,131 @@
 <script lang="ts">
-  import { onMount } from 'svelte';
   import { teamMembers } from '$lib/data';
   import { fadeUp } from '$lib/actions/scrollAnimation';
-  import { initRoad } from '$lib/utils/road';
 
-  let canvasEl: HTMLCanvasElement;
-
-  onMount(() => {
-    const cleanup = initRoad({ canvas: canvasEl, side: 'right' });
-    return cleanup;
-  });
-
-  const groupedMembers = teamMembers.reduce((acc, member) => {
-    if (!acc[member.category]) acc[member.category] = [];
-    acc[member.category].push(member);
-    return acc;
-  }, {} as Record<string, typeof teamMembers>);
+  const groupedMembers = teamMembers.reduce(
+    (acc, member) => {
+      (acc[member.category] ??= []).push(member);
+      return acc;
+    },
+    {} as Record<string, typeof teamMembers>
+  );
 
   const categories = Object.keys(groupedMembers).sort();
+
+  const formatRoles = (position: string) => position.split('/').join(' · ');
+
+  function handleImageError(event: Event) {
+    const target = event.currentTarget as HTMLImageElement;
+    if (!target.src.endsWith('/team-images/placeholder.svg')) {
+      target.src = '/team-images/placeholder.svg';
+    }
+  }
 </script>
 
 <svelte:head>
-  <title>The Team | Westwood Solar Car</title>
+  <title>Team | Westwood Solar Car</title>
+  <meta
+    name="description"
+    content="Meet the {teamMembers.length} student engineers behind Westwood Solar Car: design, electrical, build, and operations."
+  />
 </svelte:head>
 
-<canvas bind:this={canvasEl} class="road-canvas"></canvas>
-
-<section class="section">
-  <div class="container page-header animate-fade-in">
-    <h1 class="title">Meet The <span class="text-accent">Team</span></h1>
-    <p class="subtitle">The brilliant minds behind the machine.</p>
+<section class="page-hero">
+  <div class="container">
+    <span class="eyebrow">The team</span>
+    <h1>{teamMembers.length} students. One machine.</h1>
+    <p class="lead">
+      From CAD and electrical design to fabrication and fundraising, every part of the program is
+      run by students.
+    </p>
   </div>
 </section>
 
-{#each categories as category, i}
-  <section class="section {i % 2 === 0 ? 'section-darker' : ''}">
-    <div class="container">
-      <h2 class="mb-lg text-center" use:fadeUp>{category}</h2>
-      <div class="team-grid" use:fadeUp>
-        {#each groupedMembers[category] as member}
-          <div class="team-member" use:fadeUp>
-            <div class="member-image-wrapper">
-              <img
-                src={member.image[0]}
-                alt={member.name}
-                class="member-image"
-                onerror={(event) => {
-                  const target = event.currentTarget as HTMLImageElement;
-                  const candidates = member.image as string[];
-                  const currentIndex = candidates.indexOf(target.currentSrc || target.src);
-                  const nextCandidate = candidates[currentIndex + 1];
-
-                  if (nextCandidate) {
-                    target.src = nextCandidate;
-                  }
-                }}
-              />
-            </div>
-            <h3 class="member-name">{member.name}</h3>
-            <div class="member-role text-accent">{member.position}</div>
-          </div>
-        {/each}
+<section class="section">
+  <div class="container">
+    {#each categories as category, i}
+      <div class="group" class:first={i === 0}>
+        <div class="group-head" use:fadeUp>
+          <h2>{category}</h2>
+          <span class="group-count">{groupedMembers[category].length}</span>
+        </div>
+        <div class="team-grid">
+          {#each groupedMembers[category] as member, j}
+            <article class="member-card" use:fadeUp={{ delay: j * 50 }}>
+              <div class="member-photo">
+                <img
+                  src={member.image}
+                  alt="Portrait of {member.name}"
+                  loading="lazy"
+                  onerror={handleImageError}
+                />
+              </div>
+              <h3 class="member-name">{member.name}</h3>
+              <p class="member-roles">{formatRoles(member.position)}</p>
+            </article>
+          {/each}
+        </div>
       </div>
-    </div>
-  </section>
-{/each}
+    {/each}
+  </div>
+</section>
 
 <style>
-  .road-canvas {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    z-index: -1;
+  .group + .group {
+    margin-top: var(--space-xl);
   }
 
-  .page-header {
-    text-align: center;
-    max-width: 800px;
-    margin: 0 auto;
-    position: relative;
-    z-index: 1;
+  .group-head {
+    display: flex;
+    align-items: baseline;
+    gap: 0.625rem;
+    margin-bottom: var(--space-md);
   }
 
-  .title {
-    margin-bottom: var(--spacing-sm);
-  }
-
-  .subtitle {
+  .group-head h2 {
     font-size: 1.25rem;
-    color: var(--text-secondary);
+  }
+
+  .group-count {
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: var(--text-faint);
   }
 
   .team-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: var(--spacing-md);
-    justify-content: center;
-    justify-items: center;
-    position: relative;
-    z-index: 1;
+    grid-template-columns: repeat(auto-fill, minmax(168px, 1fr));
+    gap: var(--space-lg) var(--space-md);
   }
 
-  .team-member {
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .member-image-wrapper {
-    width: 200px;
+  .member-photo {
     aspect-ratio: 3 / 4;
-    margin: 0 auto var(--spacing-sm);
     overflow: hidden;
-    border-radius: var(--border-radius);
-    background-color: var(--bg-surface-elevated);
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    border-radius: var(--radius-md);
+    background-color: var(--surface-raised);
+    border: 1px solid var(--border);
+    margin-bottom: 0.75rem;
   }
 
-  .member-image {
+  .member-photo img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform var(--transition-slow);
+    transition: transform 0.4s var(--ease-out);
   }
 
-  .team-member:hover .member-image {
-    transform: scale(1.05);
+  .member-card:hover .member-photo img {
+    transform: scale(1.04);
   }
 
   .member-name {
-    font-size: 1.25rem;
-    margin-bottom: 0.25rem;
+    font-size: 1.0625rem;
+    margin-bottom: 0.125rem;
   }
 
-  .member-role {
-    font-size: 0.85rem;
-    font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-  }
-
-  section, .container, h2 {
-    position: relative;
-    z-index: 1;
+  .member-roles {
+    font-size: 0.8125rem;
+    color: var(--text-faint);
+    line-height: 1.5;
   }
 </style>

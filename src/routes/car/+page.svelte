@@ -1,4 +1,5 @@
 <script lang="ts">
+  import CarSilhouette from '$lib/components/CarSilhouette.svelte';
   import { carSpecs } from '$lib/data';
   import { fadeUp } from '$lib/actions/scrollAnimation';
 
@@ -7,213 +8,147 @@
     { label: 'Dimensions', value: carSpecs.dimensions },
     { label: 'Powertrain', value: carSpecs.powertrain },
     { label: 'Battery', value: carSpecs.battery },
-    { label: 'Top Speed', value: carSpecs.topSpeed },
+    { label: 'Top speed', value: carSpecs.topSpeed },
     { label: 'Materials', value: carSpecs.materials }
   ];
 
   const highlights = [
     {
-      title: 'Aerodynamic Optimization',
-      desc: 'Extensive CFD (Computational Fluid Dynamics) simulations resulted in a tear-drop shaped canopy that reduces drag by 20% compared to our previous model.',
-      image: 'https://placehold.co/400x300/1e1e21/a0a0a5?text=Aero'
+      title: 'Aerodynamic optimization',
+      desc: 'Extensive CFD simulation shaped a teardrop canopy that cuts drag by 20% over our previous model. Every watt saved is speed gained.',
+      icon: 'M3.75 12h16.5M3.75 6.75h10.5a3 3 0 1 1 0 6M3.75 17.25h7.5a3 3 0 1 0 0-6'
     },
     {
-      title: 'Custom Battery Management System',
-      desc: 'Our electrical team developed a proprietary BMS that monitors individual cell temperatures and voltages in real-time, maximizing efficiency and safety.',
-      image: 'https://placehold.co/400x300/1e1e21/a0a0a5?text=BMS'
+      title: 'Custom battery management',
+      desc: 'A student-built BMS monitors individual cell temperatures and voltages in real time, maximizing efficiency while keeping the pack safe.',
+      icon: 'M21 10.5h.375c.621 0 1.125.504 1.125 1.125v1.5c0 .621-.504 1.125-1.125 1.125H21M3.75 18h15A2.25 2.25 0 0 0 21 15.75v-6a2.25 2.25 0 0 0-2.25-2.25h-15A2.25 2.25 0 0 0 1.5 9.75v6A2.25 2.25 0 0 0 3.75 18ZM10.5 9.75 8.25 12.75h4.5l-2.25 3'
     },
     {
-      title: 'Carbon Fiber Monocoque',
-      desc: 'To achieve extreme weight reduction without compromising structural integrity, the entire chassis is constructed from aerospace-grade carbon fiber.',
-      image: 'https://placehold.co/400x300/1e1e21/a0a0a5?text=Chassis'
+      title: 'Carbon fiber monocoque',
+      desc: 'The entire chassis is aerospace-grade carbon fiber, for extreme weight reduction with no compromise in structural integrity.',
+      icon: 'M3.75 3.75v4.5m0-4.5h4.5m-4.5 0L9 9M3.75 20.25v-4.5m0 4.5h4.5m-4.5 0L9 15M20.25 3.75h-4.5m4.5 0v4.5m0-4.5L15 9m5.25 11.25h-4.5m4.5 0v-4.5m0 4.5L15 15'
     }
   ];
 </script>
 
 <svelte:head>
-  <title>The Car | Westwood Solar Car</title>
+  <title>The Car: {carSpecs.name} | Westwood Solar Car</title>
+  <meta
+    name="description"
+    content="{carSpecs.name}: a {carSpecs.weight} carbon fiber solar race car with a {carSpecs.powertrain} and a top speed of {carSpecs.topSpeed}."
+  />
 </svelte:head>
 
-<section class="hero car-hero">
-  <div class="hero-bg">
-    <img src="https://placehold.co/1920x1080/0a0a0c/a0a0a5?text=Car+Hero+Image" alt="WSC-26" class="hero-image" />
-  </div>
-  <div class="hero-overlay"></div>
-  
-  <div class="container hero-content animate-fade-in">
-    <h2 class="subtitle">Introducing</h2>
-    <h1 class="title">{carSpecs.name}</h1>
-    <p class="mission-text">The pinnacle of student-led automotive engineering. Faster, lighter, and more efficient than ever before.</p>
-  </div>
-</section>
-
-<section class="section section-darker">
+<section class="page-hero car-hero">
   <div class="container">
-    <div class="specs-container">
-      <div class="specs-info" use:fadeUp>
-        <h2>Technical <span class="text-accent">Specifications</span></h2>
-        <p class="mb-lg">Every component of {carSpecs.name} was meticulously designed to extract maximum performance from the sun's energy.</p>
-        
-        <ul class="specs-list">
-          {#each specsList as spec}
-            <li>
-              <span class="spec-label">{spec.label}</span>
-              <span class="spec-value">{spec.value}</span>
-            </li>
-          {/each}
-        </ul>
-      </div>
-      
-      <div class="specs-visual" use:fadeUp>
-        <img src="https://placehold.co/600x400/333333/a0a0a5?text=Car+Blueprint" alt="Car Blueprint" class="blueprint-img" />
-      </div>
+    <span class="eyebrow">Introducing</span>
+    <h1>{carSpecs.name}</h1>
+    <p class="lead">
+      The pinnacle of student-led automotive engineering. Faster, lighter, and more efficient
+      than anything we've built before.
+    </p>
+    <div class="hero-visual" use:fadeUp>
+      <CarSilhouette />
     </div>
   </div>
 </section>
 
 <section class="section">
   <div class="container">
-    <h2 class="text-center mb-lg" use:fadeUp>Engineering <span class="text-accent">Highlights</span></h2>
-    
-    <div class="features-grid">
-      {#each highlights as highlight}
-        <div class="feature-item" use:fadeUp>
-          <img src={highlight.image} alt={highlight.title} class="feature-img" />
-          <div class="feature-content">
-            <h3>{highlight.title}</h3>
-            <p>{highlight.desc}</p>
-          </div>
+    <div class="section-head" use:fadeUp>
+      <span class="eyebrow">Technical specifications</span>
+      <h2>Engineered down to the gram.</h2>
+      <p>
+        Every component of {carSpecs.name} was designed to extract maximum performance from the
+        sun's energy.
+      </p>
+    </div>
+
+    <dl class="specs-grid">
+      {#each specsList as spec, i}
+        <div class="spec-row" use:fadeUp={{ delay: i * 50 }}>
+          <dt>{spec.label}</dt>
+          <dd>{spec.value}</dd>
         </div>
+      {/each}
+    </dl>
+  </div>
+</section>
+
+<section class="section section-alt">
+  <div class="container">
+    <div class="section-head" use:fadeUp>
+      <span class="eyebrow">Engineering highlights</span>
+      <h2>Where the performance comes from.</h2>
+    </div>
+
+    <div class="highlights-grid">
+      {#each highlights as highlight, i}
+        <article class="panel highlight-card" use:fadeUp={{ delay: i * 80 }}>
+          <span class="icon-chip">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d={highlight.icon} />
+            </svg>
+          </span>
+          <h3>{highlight.title}</h3>
+          <p>{highlight.desc}</p>
+        </article>
       {/each}
     </div>
   </div>
 </section>
 
 <style>
-  .car-hero {
-    min-height: 80vh;
+  .car-hero .hero-visual {
+    max-width: 760px;
+    margin-top: var(--space-xl);
   }
 
-  .hero-bg {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -2;
-    background-image: url('https://placehold.co/1920x1080/0a0a0c/a0a0a5?text=Car+Hero+Image');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-  }
-
-  .hero-image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-
-  .hero-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(to top, var(--bg-main) 0%, transparent 60%),
-                linear-gradient(to right, var(--bg-main) 0%, transparent 80%);
-    z-index: -1;
-  }
-
-  .specs-container {
+  .specs-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: var(--spacing-xl);
-    align-items: center;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 0 var(--space-xl);
+    max-width: 900px;
   }
 
-  @media (max-width: 768px) {
-    .specs-container {
-      grid-template-columns: 1fr;
-      gap: var(--spacing-lg);
-    }
-  }
-
-  .specs-list {
-    list-style: none;
-    border-top: 1px solid var(--border-strong);
-  }
-
-  .specs-list li {
+  .spec-row {
     display: flex;
-    padding: var(--spacing-sm) 0;
-    border-bottom: 1px solid var(--border-subtle);
+    justify-content: space-between;
+    align-items: baseline;
+    gap: var(--space-md);
+    padding: var(--space-sm) 0;
+    border-bottom: 1px solid var(--border);
   }
 
-  @media (max-width: 480px) {
-    .specs-list li {
-      flex-direction: column;
-      gap: 0.25rem;
-    }
-  }
-
-  .spec-label {
-    width: 150px;
+  .spec-row dt {
+    font-size: 0.8125rem;
     font-weight: 600;
-    color: var(--text-secondary);
     text-transform: uppercase;
-    letter-spacing: 0.05em;
-    font-size: 0.875rem;
+    letter-spacing: 0.08em;
+    color: var(--text-faint);
     flex-shrink: 0;
   }
 
-  .spec-value {
-    font-weight: 500;
-    color: var(--text-primary);
+  .spec-row dd {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 1.0625rem;
+    color: var(--text);
+    text-align: right;
   }
 
-  .blueprint-img {
-    width: 100%;
-    border-radius: 4px;
-    border: 1px solid var(--border-strong);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-  }
-
-  .features-grid {
+  .highlights-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: var(--spacing-lg);
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: var(--space-md);
   }
 
-  .feature-item {
-    background-color: var(--bg-surface);
-    border: 1px solid var(--border-subtle);
-    border-radius: 4px;
-    overflow: hidden;
-    transition: transform var(--transition-base);
+  .highlight-card h3 {
+    margin: var(--space-md) 0 var(--space-xs);
   }
 
-  .feature-item:hover {
-    transform: translateY(-5px);
-  }
-
-  .feature-img {
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
-    border-bottom: 1px solid var(--border-subtle);
-  }
-
-  .feature-content {
-    padding: var(--spacing-md);
-  }
-
-  .feature-content h3 {
-    margin-bottom: var(--spacing-xs);
-    font-size: 1.25rem;
-  }
-
-  .feature-content p {
-    margin: 0;
-    font-size: 0.95rem;
+  .highlight-card p {
+    font-size: 0.9375rem;
+    line-height: 1.65;
   }
 </style>

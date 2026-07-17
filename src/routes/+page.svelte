@@ -1,264 +1,291 @@
 <script lang="ts">
-  import { onMount } from 'svelte';
   import Button from '$lib/components/Button.svelte';
-  import Card from '$lib/components/Card.svelte';
+  import CarSilhouette from '$lib/components/CarSilhouette.svelte';
   import { fadeUp } from '$lib/actions/scrollAnimation';
-  import { initRoad } from '$lib/utils/road';
+  import { teamMembers, carSpecs } from '$lib/data';
 
-  let canvasEl: HTMLCanvasElement;
+  const stats = [
+    { value: String(teamMembers.length), label: 'Student engineers' },
+    { value: '2020', label: 'Team founded' },
+    { value: '100%', label: 'Solar powered' },
+    { value: 'TMS', label: 'Texas Motor Speedway' }
+  ];
 
-  onMount(() => {
-    const cleanup = initRoad({ canvas: canvasEl, side: 'left' });
-    return cleanup;
-  });
-
-  let animatedMembers = $state(0);
-
-  onMount(() => {
-    const target = 14;
-    const duration = 1400;
-    const start = performance.now();
-
-    const step = (now: number) => {
-      const progress = Math.min((now - start) / duration, 1);
-      animatedMembers = Math.round(target * progress);
-
-      if (progress < 1) {
-        requestAnimationFrame(step);
-      }
-    };
-
-    requestAnimationFrame(step);
-  });
-
-  const highlights = [
+  const pillars = [
     {
-      title: 'Texas Motor Speedway',
-      image: 'https://placehold.co/600x400/333333/a0a0a5?text=TMS+Race',
-      desc: 'Competing on the world-renowned closed track, pushing our engineering limits in endurance racing.'
+      title: 'Design & Simulate',
+      desc: 'CAD modeling and CFD simulation shape every surface of the car before a single part is cut, from the aeroshell to the suspension geometry.',
+      icon: 'M9.75 3.104v5.714a2.25 2.25 0 0 1-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 0 1 4.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19.8 15.3M14.25 3.104c.251.023.501.05.75.082M19.8 15.3l-1.57.393A9.065 9.065 0 0 1 12 15a9.065 9.065 0 0 0-6.23-.693L5 14.5m14.8.8 1.402 1.402c1.232 1.232.65 3.318-1.067 3.611A48.309 48.309 0 0 1 12 21c-2.773 0-5.491-.235-8.135-.687-1.718-.293-2.3-2.379-1.067-3.61L5 14.5'
     },
     {
-      title: 'Cross-Country Ready',
-      image: 'https://placehold.co/600x400/333333/a0a0a5?text=Cross+Country',
-      desc: 'Designing a vehicle capable of navigating real-world roads using only the power of the sun.'
+      title: 'Build & Test',
+      desc: 'Students fabricate the chassis, battery pack, and electronics by hand, then validate every system through scrutineering-grade testing.',
+      icon: 'M11.42 15.17 17.25 21A2.652 2.652 0 0 0 21 17.25l-5.877-5.877M11.42 15.17l2.496-3.03c.317-.384.74-.626 1.208-.766M11.42 15.17l-4.655 5.653a2.548 2.548 0 1 1-3.586-3.586l6.837-5.63m5.108-.233c.55-.164 1.163-.188 1.743-.14a4.5 4.5 0 0 0 4.486-6.336l-3.276 3.277a3.004 3.004 0 0 1-2.25-2.25l3.276-3.276a4.5 4.5 0 0 0-6.336 4.486c.091 1.076-.071 2.264-.904 2.95l-.102.085m-1.745 1.437L5.909 7.5H4.5L2.25 3.75l1.5-1.5L7.5 4.5v1.409l4.26 4.26m-1.745 1.437 1.745-1.437m6.615 8.206L15.75 15.75M4.867 19.125h.008v.008h-.008v-.008Z'
     },
     {
-      title: 'Scrutineering Success',
-      image: 'https://placehold.co/600x400/333333/a0a0a5?text=Scrutineering',
-      desc: 'Passing rigorous electrical and mechanical safety inspections required by the Solar Car Challenge.'
+      title: 'Race & Compete',
+      desc: 'The team races in the national Solar Car Challenge, competing in endurance events on closed tracks and cross-country routes.',
+      icon: 'M3 3v18M3 4.5h13.5L14 8l2.5 3.5H3'
     }
   ];
 </script>
 
 <svelte:head>
-  <title>Westwood Solar Car Racing | High School Engineering</title>
-  <meta name="description" content="Westwood Solar Car is a high school student-led engineering team dedicated to competing in the national Solar Car Challenge." />
+  <title>Westwood Solar Car | Student-Built Solar Racing</title>
+  <meta
+    name="description"
+    content="Westwood Solar Car is a high school student-led engineering team that designs, builds, and races solar-powered vehicles in the national Solar Car Challenge."
+  />
 </svelte:head>
 
-<canvas bind:this={canvasEl} class="road-canvas"></canvas>
-
 <section class="hero">
-  <div class="hero-bg"></div>
-  <div class="hero-overlay"></div>
-  
-  <div class="container hero-content animate-fade-in">
-    <h2 class="subtitle">High School Engineering</h2>
-    <h1 class="title">Westwood<br><span class="text-accent">Solar Car</span></h1>
-    <p class="mission-text">Designing, building, and racing solar-powered vehicles for the national Solar Car Challenge.</p>
-    <div class="hero-actions">
-      <Button href="/car">Explore The Car</Button>
-      <Button href="/sponsors" variant="outline">Partner With Us</Button>
+  <div class="hero-glow" aria-hidden="true"></div>
+  <div class="container hero-inner">
+    <div class="hero-copy">
+      <span class="eyebrow">Westwood High School · Solar Car Challenge</span>
+      <h1>Racing on nothing but sunlight.</h1>
+      <p class="lead">
+        We're a student-led engineering team that designs, builds, and races solar-powered
+        vehicles, taking on the national Solar Car Challenge from CAD model to finish line.
+      </p>
+      <div class="hero-actions">
+        <Button href="/car">Explore the car</Button>
+        <Button href="/sponsors" variant="outline">Partner with us</Button>
+      </div>
     </div>
-  </div>
-</section>
 
-<section class="section section-darker">
-  <div class="container">
-    <div class="stats-showcase" use:fadeUp>
-      <p class="stats-kicker">Team Momentum</p>
-      <div class="stats-number">{animatedMembers}</div>
-      <h2 class="stats-title">Active team members building the next race-ready solar car.</h2>
-      <p class="stats-copy">From design and fabrication to testing and outreach, every member contributes to the mission.</p>
-    </div>
+    <dl class="hero-stats">
+      {#each stats as stat}
+        <div class="stat">
+          <dt>{stat.label}</dt>
+          <dd>{stat.value}</dd>
+        </div>
+      {/each}
+    </dl>
   </div>
 </section>
 
 <section class="section">
   <div class="container">
-    <div class="section-header" use:fadeUp>
-      <h2>The <span class="text-accent">Solar Car Challenge</span></h2>
-      <Button href="/about" variant="outline">Our Story</Button>
+    <div class="section-head" use:fadeUp>
+      <span class="eyebrow">What we do</span>
+      <h2>Every part of the car, built by students.</h2>
     </div>
-    
-    <div class="highlights-grid mt-lg">
-      {#each highlights as item}
-        <div use:fadeUp>
-          <Card title={item.title} image={item.image}>
-            <p>{item.desc}</p>
-          </Card>
-        </div>
+
+    <div class="pillars">
+      {#each pillars as pillar, i}
+        <article class="panel pillar" use:fadeUp={{ delay: i * 80 }}>
+          <span class="icon-chip">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d={pillar.icon} />
+            </svg>
+          </span>
+          <h3>{pillar.title}</h3>
+          <p>{pillar.desc}</p>
+        </article>
       {/each}
     </div>
   </div>
 </section>
 
-<section class="section section-darker cta-section">
-  <div class="container text-center" use:fadeUp>
-    <h2>Become Part of <span class="text-accent">Our Journey</span></h2>
-    <p class="cta-text mx-auto mt-sm mb-md">We are always looking for passionate high school students to join our engineering, design, and business teams.</p>
+<section class="section section-alt">
+  <div class="container car-band">
+    <div class="car-copy" use:fadeUp>
+      <span class="eyebrow">The car</span>
+      <h2>{carSpecs.name}</h2>
+      <p>
+        Our most advanced vehicle yet: a carbon fiber monocoque wrapped around a custom hub motor
+        and a 5kWh battery pack, engineered for efficiency at highway speeds.
+      </p>
+      <dl class="key-specs">
+        <div>
+          <dt>Weight</dt>
+          <dd>{carSpecs.weight}</dd>
+        </div>
+        <div>
+          <dt>Top speed</dt>
+          <dd>{carSpecs.topSpeed}</dd>
+        </div>
+        <div>
+          <dt>Powertrain</dt>
+          <dd>{carSpecs.powertrain}</dd>
+        </div>
+      </dl>
+      <Button href="/car" variant="outline">Full specifications</Button>
+    </div>
+    <div class="car-visual" use:fadeUp={{ delay: 120 }}>
+      <CarSilhouette />
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container cta-split">
+    <div class="panel cta-card" use:fadeUp>
+      <span class="eyebrow">Students</span>
+      <h3>Join the team</h3>
+      <p>
+        No experience required, just curiosity. Learn CAD, electronics, fabrication, and
+        project management by shipping real hardware.
+      </p>
+      <Button href="/contact" variant="outline">Get in touch</Button>
+    </div>
+    <div class="panel cta-card featured" use:fadeUp={{ delay: 80 }}>
+      <span class="eyebrow">Companies</span>
+      <h3>Power the build</h3>
+      <p>
+        Sponsorships fund materials, tooling, and race logistics, and put your brand on a
+        solar car competing at the national level.
+      </p>
+      <Button href="/sponsors">Sponsorship tiers</Button>
+    </div>
   </div>
 </section>
 
 <style>
-  .road-canvas {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    z-index: -1;
-  }
-
   .hero {
     position: relative;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    padding: calc(var(--space-section) * 1.2) 0 var(--space-section);
     overflow: hidden;
+    border-bottom: 1px solid var(--border);
   }
 
-  .hero-bg {
+  .hero-glow {
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    /* Using a linear gradient as a placeholder for the hero image */
-    background: linear-gradient(135deg, var(--bg-surface-elevated) 0%, var(--bg-main) 100%);
-    z-index: -2;
+    top: -40%;
+    right: -15%;
+    width: 70vw;
+    height: 70vw;
+    max-width: 900px;
+    max-height: 900px;
+    background: radial-gradient(circle, var(--accent-soft) 0%, transparent 65%);
+    pointer-events: none;
   }
 
-  .hero-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: radial-gradient(circle at center, transparent 0%, var(--bg-main) 100%);
-    z-index: -1;
+  .hero-inner {
+    position: relative;
   }
 
-  .hero-content {
-    max-width: 800px;
+  .hero-copy h1 {
+    max-width: 13em;
   }
 
-  .subtitle {
-    font-size: 1rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.2em;
-    color: var(--text-secondary);
-    margin-bottom: var(--spacing-sm);
-  }
-
-  .title {
-    margin-bottom: var(--spacing-md);
-  }
-
-  .mission-text {
-    font-size: 1.5rem;
-    color: var(--text-primary);
-    max-width: 600px;
-    margin-bottom: var(--spacing-lg);
+  .hero-copy .lead {
+    margin-top: var(--space-md);
   }
 
   .hero-actions {
     display: flex;
-    gap: var(--spacing-sm);
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+    margin-top: var(--space-lg);
   }
 
-  @media (max-width: 600px) {
-    .hero-actions {
-      flex-direction: column;
+  .hero-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-md);
+    margin-top: var(--space-xl);
+    padding-top: var(--space-lg);
+    border-top: 1px solid var(--border);
+  }
+
+  @media (max-width: 640px) {
+    .hero-stats {
+      grid-template-columns: repeat(2, 1fr);
     }
   }
 
-  .stats-showcase {
+  .stat dt {
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: var(--text-faint);
+    order: 2;
+  }
+
+  .stat dd {
+    font-family: var(--font-display);
+    font-size: clamp(1.75rem, 3vw, 2.25rem);
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1.1;
+    margin-bottom: 0.25rem;
+  }
+
+  .pillars {
     display: grid;
-    gap: var(--spacing-sm);
-    justify-items: center;
-    text-align: center;
-    padding: clamp(2rem, 6vw, 4rem);
-    border: 1px solid var(--border-subtle);
-    border-radius: 24px;
-    background:
-      linear-gradient(145deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.02));
-    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.18);
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: var(--space-md);
   }
 
-  .stats-kicker {
-    font-size: 0.85rem;
-    text-transform: uppercase;
-    letter-spacing: 0.2em;
-    color: var(--accent-orange);
-    margin-bottom: 0;
+  .pillar h3 {
+    margin: var(--space-md) 0 var(--space-xs);
   }
 
-  .stats-number {
-    font-size: clamp(4rem, 12vw, 7rem);
-    line-height: 1;
-    font-weight: 800;
-    color: var(--text-primary);
+  .pillar p {
+    font-size: 0.9375rem;
+    line-height: 1.65;
   }
 
-  .stats-title {
-    max-width: 780px;
-    margin-bottom: 0;
-    font-size: clamp(1.35rem, 3vw, 2rem);
+  .car-band {
+    display: grid;
+    grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+    gap: var(--space-xl);
+    align-items: center;
   }
 
-  .stats-copy {
-    max-width: 640px;
-    margin-bottom: 0;
-    color: var(--text-secondary);
-    font-size: 1.05rem;
+  @media (max-width: 860px) {
+    .car-band {
+      grid-template-columns: 1fr;
+    }
   }
 
-  .section-header {
+  .car-copy p {
+    margin: var(--space-sm) 0 var(--space-md);
+    max-width: 34em;
+  }
+
+  .key-specs {
     display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
+    flex-wrap: wrap;
+    gap: var(--space-lg);
+    margin-bottom: var(--space-lg);
   }
 
-  @media (max-width: 768px) {
-    .section-header {
-      flex-direction: column;
-      align-items: flex-start;
-      gap: var(--spacing-md);
-    }
+  .key-specs dt {
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: var(--text-faint);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
   }
 
-  .highlights-grid {
+  .key-specs dd {
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--text);
+  }
+
+  .cta-split {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: var(--spacing-md);
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--space-md);
   }
 
-  .cta-section {
-    padding: var(--spacing-xl) 0;
+  .cta-card h3 {
+    font-size: 1.5rem;
+    margin-bottom: var(--space-xs);
   }
 
-  .cta-text {
-    max-width: 600px;
-    margin-left: auto;
-    margin-right: auto;
+  .cta-card p {
+    margin-bottom: var(--space-md);
+    font-size: 0.9375rem;
+    line-height: 1.65;
+    max-width: 36em;
   }
 
-  .mx-auto {
-    margin-left: auto;
-    margin-right: auto;
+  .cta-card.featured {
+    border-color: var(--accent);
   }
 </style>

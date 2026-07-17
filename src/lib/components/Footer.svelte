@@ -1,158 +1,151 @@
 <footer class="footer">
-  <div class="container footer-container">
+  <div class="container footer-grid">
     <div class="footer-brand">
-      <h2 class="logo"><span class="logo-w">W</span>ESTWOOD <span class="logo-accent">Solar Car</span></h2>
-      <p class="mission">Engineering Excellence.<br>Pushing the boundaries of solar technology.</p>
-      <div class="social-links">
-        <a href="https://www.instagram.com/" target="_blank" rel="noreferrer" class="social-link">Instagram</a>
-      </div>
+      <a href="/" class="footer-logo">Westwood <em>Solar Car</em></a>
+      <p class="footer-mission">
+        A student-led engineering team designing, building, and racing solar-powered vehicles in
+        the national Solar Car Challenge.
+      </p>
+      <a
+        href="https://www.instagram.com/"
+        target="_blank"
+        rel="noreferrer"
+        class="social-link"
+        aria-label="Westwood Solar Car on Instagram"
+      >
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <rect x="2" y="2" width="20" height="20" rx="5" />
+          <circle cx="12" cy="12" r="4" />
+          <circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" />
+        </svg>
+        Instagram
+      </a>
     </div>
-    
-    <div class="footer-links-group">
-      <h3>Quick Links</h3>
+
+    <nav class="footer-col" aria-label="Footer">
+      <h3>Explore</h3>
       <ul>
-        <li><a href="/about">About Us</a></li>
-        <li><a href="/team">The Team</a></li>
+        <li><a href="/about">About</a></li>
+        <li><a href="/team">Team</a></li>
         <li><a href="/car">The Car</a></li>
         <li><a href="/sponsors">Sponsors</a></li>
       </ul>
-    </div>
-    
-    <div class="footer-links-group">
-      <h3>Contact</h3>
+    </nav>
+
+    <div class="footer-col">
+      <h3>Get in touch</h3>
       <ul>
         <li><a href="mailto:contact@westwoodracing.com">contact@westwoodracing.com</a></li>
-        <li>Westwood Engineering Center</li>
-        <li>123 Solar Way</li>
-        <li>Austin, TX 78759</li>
+        <li><a href="/sponsors">Become a sponsor</a></li>
+        <li><a href="/contact">Join the team</a></li>
       </ul>
     </div>
   </div>
-  
+
   <div class="footer-bottom">
-    <div class="container bottom-container">
-      <p>&copy; {new Date().getFullYear()} Westwood Solar Car Racing. All rights reserved.</p>
-      <div class="legal-links">
-        <a href="mailto:contact@westwoodracing.com">Contact</a>
-        <a href="/sponsors">Sponsor Us</a>
-      </div>
+    <div class="container bottom-row">
+      <p>&copy; {new Date().getFullYear()} Westwood Solar Car. All rights reserved.</p>
+      <p>Austin, Texas</p>
     </div>
   </div>
 </footer>
 
 <style>
   .footer {
-    background-color: var(--bg-section-alt);
-    border-top: 1px solid var(--border-subtle);
-    padding-top: var(--spacing-lg);
+    background-color: var(--bg-alt);
+    border-top: 1px solid var(--border);
   }
 
-  .footer-container {
+  .footer-grid {
     display: grid;
     grid-template-columns: 2fr 1fr 1fr;
-    gap: var(--spacing-lg);
-    margin-bottom: var(--spacing-xl);
+    gap: var(--space-xl);
+    padding-top: var(--space-xl);
+    padding-bottom: var(--space-xl);
   }
 
   @media (max-width: 768px) {
-    .footer-container {
+    .footer-grid {
       grid-template-columns: 1fr;
-      gap: var(--spacing-md);
+      gap: var(--space-lg);
     }
   }
 
-  .logo {
-    font-size: 1.5rem;
-    margin-bottom: var(--spacing-sm);
+  .footer-logo {
+    font-family: var(--font-display);
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: var(--text);
   }
 
-  .logo-w { font-size: 1.5rem; font-weight: 600; font-family: var(--font-main); }
-  .logo-accent { color: var(--accent-orange); text-transform: uppercase; }
-
-  .mission {
-    color: var(--text-tertiary);
-    margin-bottom: var(--spacing-md);
+  .footer-logo em {
+    font-style: normal;
+    color: var(--accent-text);
   }
 
-  .social-links {
-    display: flex;
-    gap: 1rem;
+  .footer-mission {
+    margin: var(--space-sm) 0 var(--space-md);
+    max-width: 34em;
+    font-size: 0.9375rem;
   }
 
   .social-link {
-    font-size: 0.875rem;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    font-weight: 600;
-    color: var(--text-secondary);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9375rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    min-height: 44px;
   }
 
   .social-link:hover {
-    color: var(--accent-orange);
+    color: var(--accent-text);
   }
 
-  .footer-links-group h3 {
-    font-size: 1.125rem;
-    margin-bottom: var(--spacing-sm);
-    color: var(--text-primary);
+  .footer-col h3 {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-faint);
+    margin-bottom: var(--space-sm);
   }
 
-  .footer-links-group ul {
+  .footer-col ul {
     list-style: none;
   }
 
-  .footer-links-group li {
-    margin-bottom: 0.5rem;
+  .footer-col li {
+    margin-bottom: 0.25rem;
   }
 
-  .footer-links-group a,
-  .footer-links-group li {
-    color: var(--text-secondary);
-    font-size: 0.9rem;
-    transition: color var(--transition-fast);
+  .footer-col a {
+    display: inline-block;
+    padding: 0.375rem 0;
+    font-size: 0.9375rem;
+    color: var(--text-muted);
   }
 
-  .footer-links-group a:hover {
-    color: var(--accent-orange);
+  .footer-col a:hover {
+    color: var(--text);
   }
 
   .footer-bottom {
-    background-color: var(--bg-main);
-    border-top: 1px solid var(--border-subtle);
-    padding: var(--spacing-sm) 0;
+    border-top: 1px solid var(--border);
+    padding: var(--space-sm) 0;
   }
 
-  .bottom-container {
+  .bottom-row {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    gap: var(--space-sm);
+    flex-wrap: wrap;
   }
 
-  @media (max-width: 768px) {
-    .bottom-container {
-      flex-direction: column;
-      gap: var(--spacing-xs);
-      text-align: center;
-    }
-  }
-
-  .footer-bottom p {
-    font-size: 0.8rem;
-    color: var(--text-tertiary);
+  .bottom-row p {
+    font-size: 0.8125rem;
+    color: var(--text-faint);
     margin: 0;
-  }
-
-  .legal-links {
-    display: flex;
-    gap: 1rem;
-  }
-
-  .legal-links a {
-    font-size: 0.8rem;
-    color: var(--text-tertiary);
-  }
-
-  .legal-links a:hover {
-    color: var(--text-primary);
   }
 </style>

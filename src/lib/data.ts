@@ -1,6 +1,7 @@
 const memberImageMap: Record<string, string> = {
   ishaan: '/team-images/ishaan.png',
   jackson: '/team-images/jackson.png',
+  lucas: '/team-images/lucas.jpeg',
   owen: '/team-images/owen.png',
   samuel: '/team-images/samuel.png'
 };
@@ -8,7 +9,7 @@ const memberImageMap: Record<string, string> = {
 const getMemberImage = (name: string) => {
   const firstName = name.trim().split(/\s+/)[0].toLowerCase().replace(/[^a-z0-9]/g, '');
 
-  return [memberImageMap[firstName] ?? '/team-images/placeholder.svg'];
+  return memberImageMap[firstName] ?? '/team-images/placeholder.svg';
 };
 
 export const teamMembers = [
@@ -28,29 +29,59 @@ export const teamMembers = [
   { name: 'Alyna', position: 'Finance/Fundraising', category: 'Finance & Ops', image: getMemberImage('Alyna') }
 ];
 
-export const sponsors = {
-  platinum: [
-    { id: 'p1', name: 'TechCorp Industries', logo: 'https://placehold.co/300x150/333333/a0a0a5?text=TechCorp', link: '#' },
-    { id: 'p2', name: 'AeroDynamics Global', logo: 'https://placehold.co/300x150/333333/a0a0a5?text=AeroDynamics', link: '#' }
-  ],
-  gold: [
-    { id: 'g1', name: 'FutureEnergy', logo: 'https://placehold.co/250x125/333333/a0a0a5?text=FutureEnergy', link: '#' },
-    { id: 'g2', name: 'Precision Machining', logo: 'https://placehold.co/250x125/333333/a0a0a5?text=Precision', link: '#' }
-  ],
-  silver: [
-    { id: 's1', name: 'SolidWorks', logo: 'https://placehold.co/200x100/333333/a0a0a5?text=SolidWorks', link: '#' },
-    { id: 's2', name: 'Altium', logo: 'https://placehold.co/200x100/333333/a0a0a5?text=Altium', link: '#' }
-  ],
-  bronze: [
-    { id: 'b1', name: 'Local Hardware Store', logo: 'https://placehold.co/180x90/333333/a0a0a5?text=Hardware', link: '#' },
-    { id: 'b2', name: 'Community Bank', logo: 'https://placehold.co/180x90/333333/a0a0a5?text=Community', link: '#' }
-  ]
-};
+export const sponsorTiers = [
+  {
+    name: 'Platinum',
+    range: '$2,500+',
+    featured: true,
+    summary: 'Premier visibility across the car, website, and every competition presentation.',
+    benefits: [
+      'Large logo on the solar car',
+      'Premier website placement',
+      'Featured in all team media',
+      'Team presentation access',
+      'Dedicated sponsor report',
+      'Event tickets & recognition'
+    ]
+  },
+  {
+    name: 'Gold',
+    range: '$1,000 – $2,499',
+    featured: false,
+    summary: 'Prominent recognition across team materials, the website, and competition events.',
+    benefits: [
+      'Medium logo on the solar car',
+      'Website recognition',
+      'Social media feature',
+      'Competition recognition',
+      'Sponsor update report'
+    ]
+  },
+  {
+    name: 'Silver',
+    range: '$500 – $999',
+    featured: false,
+    summary: 'Recognition on the website and in all season-end materials and presentations.',
+    benefits: [
+      'Logo on team materials',
+      'Website recognition',
+      'Social media mention',
+      'Season-end report'
+    ]
+  },
+  {
+    name: 'Bronze',
+    range: '$100 – $499',
+    featured: false,
+    summary: 'Website recognition and acknowledgment in team materials and communications.',
+    benefits: ['Website recognition', 'Thank-you acknowledgment', 'Season-end mention']
+  }
+];
 
 export const carSpecs = {
   name: 'WSC-26 "Helios"',
   weight: '185 kg',
-  dimensions: '4.5m x 1.8m x 1.0m',
+  dimensions: '4.5m × 1.8m × 1.0m',
   powertrain: 'Custom 1.5kW Hub Motor',
   battery: '5kWh Lithium-Ion Pack',
   topSpeed: '110 km/h',

@@ -1,99 +1,108 @@
+<script lang="ts">
+  import { fadeUp } from '$lib/actions/scrollAnimation';
+
+  const email = 'contact@westwoodracing.com';
+</script>
+
 <svelte:head>
-	<title>Contact | Westwood Solar Car</title>
+  <title>Contact | Westwood Solar Car</title>
+  <meta
+    name="description"
+    content="Get in touch with Westwood Solar Car about sponsorships, joining the team, or the program."
+  />
 </svelte:head>
 
-<section class="contact-page">
-	<div class="container contact-grid">
-		<div>
-			<p class="eyebrow">Get in Touch</p>
-			<h1>Contact <span class="text-accent">Westwood Solar Car</span></h1>
-			<p class="lead">
-				If you'd like to support the team, ask about sponsorships, or reach out about the
-				program, send us an email and we’ll get back to you.
-			</p>
-		</div>
+<section class="page-hero">
+  <div class="container">
+    <span class="eyebrow">Get in touch</span>
+    <h1>Let's talk.</h1>
+    <p class="lead">
+      Whether you want to sponsor the team, join as a student, or just learn more about the
+      program, send us an email and we'll get back to you.
+    </p>
+  </div>
+</section>
 
-		<div class="contact-card">
-			<h2>Email</h2>
-			<a class="email" href="mailto:contact@westwoodracing.com">contact@westwoodracing.com</a>
-			<p>
-				For sponsorships, include your company name and the best contact person in the message.
-			</p>
-			<a class="cta" href="mailto:contact@westwoodracing.com">Send Email</a>
-		</div>
-	</div>
+<section class="section">
+  <div class="container contact-grid">
+    <article class="panel contact-card" use:fadeUp>
+      <span class="icon-chip">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M2.25 18 9 11.25l4.306 4.306a11.95 11.95 0 0 1 5.814-5.518l2.74-1.22m0 0-5.94-2.281m5.94 2.28-2.28 5.941" />
+        </svg>
+      </span>
+      <h2>Sponsorships</h2>
+      <p>
+        Interested in partnering with the team? Include your company name and the best contact
+        person in your message, and we'll follow up with tier details.
+      </p>
+      <a
+        class="btn btn-primary"
+        href="mailto:{email}?subject=Sponsorship%20inquiry%20%E2%80%94%20Westwood%20Solar%20Car"
+      >
+        Email about sponsoring
+      </a>
+    </article>
+
+    <article class="panel contact-card" use:fadeUp={{ delay: 80 }}>
+      <span class="icon-chip">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
+        </svg>
+      </span>
+      <h2>Join the team</h2>
+      <p>
+        Westwood students: no experience needed. Tell us what you're interested in: design,
+        electrical, build, software, or business, and we'll take it from there.
+      </p>
+      <a
+        class="btn btn-outline"
+        href="mailto:{email}?subject=Joining%20Westwood%20Solar%20Car"
+      >
+        Email about joining
+      </a>
+    </article>
+  </div>
+
+  <div class="container">
+    <p class="direct-line" use:fadeUp>
+      Or write to us directly at
+      <a href="mailto:{email}" class="email-link">{email}</a>
+    </p>
+  </div>
 </section>
 
 <style>
-	.contact-page {
-		padding: var(--spacing-xl) 0;
-	}
+  .contact-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--space-md);
+  }
 
-	.contact-grid {
-		display: grid;
-		grid-template-columns: minmax(0, 1.3fr) minmax(280px, 0.7fr);
-		gap: var(--spacing-lg);
-		align-items: start;
-	}
+  .contact-card h2 {
+    font-size: 1.375rem;
+    margin: var(--space-md) 0 var(--space-xs);
+  }
 
-	.eyebrow {
-		font-size: 0.875rem;
-		font-weight: 600;
-		text-transform: uppercase;
-		letter-spacing: 0.2em;
-		color: var(--text-secondary);
-		margin-bottom: var(--spacing-xs);
-	}
+  .contact-card p {
+    font-size: 0.9375rem;
+    line-height: 1.65;
+    margin-bottom: var(--space-md);
+    max-width: 38em;
+  }
 
-	h1 {
-		font-size: clamp(2.5rem, 5vw, 4.5rem);
-		line-height: 1;
-		margin-bottom: var(--spacing-md);
-	}
+  .direct-line {
+    margin-top: var(--space-lg);
+    font-size: 0.9375rem;
+    color: var(--text-faint);
+  }
 
-	.lead {
-		font-size: 1.125rem;
-		max-width: 40rem;
-		color: var(--text-secondary);
-	}
+  .email-link {
+    color: var(--accent-text);
+    font-weight: 500;
+  }
 
-	.contact-card {
-		padding: var(--spacing-lg);
-		border: 1px solid var(--border-subtle);
-		border-radius: var(--radius-lg);
-		background: var(--bg-surface);
-	}
-
-	.contact-card h2 {
-		margin-bottom: var(--spacing-sm);
-	}
-
-	.email {
-		display: inline-block;
-		font-size: 1.05rem;
-		font-weight: 600;
-		margin-bottom: var(--spacing-sm);
-	}
-
-	.contact-card p {
-		color: var(--text-secondary);
-		margin-bottom: var(--spacing-md);
-	}
-
-	.cta {
-		display: inline-flex;
-		align-items: center;
-		justify-content: center;
-		padding: 0.9rem 1.4rem;
-		border-radius: var(--radius-md);
-		background: var(--accent-orange);
-		color: #111;
-		font-weight: 700;
-	}
-
-	@media (max-width: 800px) {
-		.contact-grid {
-			grid-template-columns: 1fr;
-		}
-	}
+  .email-link:hover {
+    text-decoration: underline;
+  }
 </style>

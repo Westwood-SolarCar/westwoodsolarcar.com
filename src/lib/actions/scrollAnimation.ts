@@ -1,19 +1,35 @@
-export function fadeUp(node: HTMLElement) {
-  // Add the base class for the animation
+interface FadeUpOptions {
+  /** Stagger delay in milliseconds. */
+  delay?: number;
+}
+
+export function fadeUp(node: HTMLElement, options: FadeUpOptions = {}) {
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (prefersReducedMotion) {
+    return {};
+  }
+
   node.classList.add('fade-up-element');
 
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        node.classList.add('in-view');
-        // Optional: stop observing once it has animated in
-        observer.unobserve(node);
+  if (options.delay) {
+    node.style.setProperty('--reveal-delay', `${options.delay}ms`);
+  }
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      for (const entry of entries) {
+        if (entry.isIntersecting) {
+          node.classList.add('in-view');
+          observer.unobserve(node);
+        }
       }
-    });
-  }, {
-    threshold: 0.1, // Trigger when 10% of the element is visible
-    rootMargin: '0px 0px -50px 0px'
-  });
+    },
+    {
+      threshold: 0.1,
+      rootMargin: '0px 0px -40px 0px'
+    }
+  );
 
   observer.observe(node);
 

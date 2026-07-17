@@ -1,227 +1,175 @@
 <script lang="ts">
-  import Card from '$lib/components/Card.svelte';
   import { fadeUp } from '$lib/actions/scrollAnimation';
 
-  const timeline = [
-    { year: '2020', event: 'Team Founded', desc: 'Westwood Solar Car was established by a small group of high school engineering students with a vision.' },
-    { year: '2022', event: 'First Competition', desc: 'Debuted WSC-22 at the Solar Car Challenge at Texas Motor Speedway.' },
-    { year: '2024', event: 'Aerodynamic Breakthrough', desc: 'Redesigned the chassis for the cross-country division, resulting in a 30% reduction in drag.' },
-    { year: '2026', event: 'WSC-26 Launch', desc: 'Unveiling our most advanced, efficient, and lightweight vehicle to date.' }
+  const values = [
+    {
+      title: 'Innovation',
+      desc: 'Constantly seeking better, more efficient solutions to hard engineering problems.'
+    },
+    {
+      title: 'Excellence',
+      desc: 'Demanding the highest quality in every component we design and build.'
+    },
+    {
+      title: 'Teamwork',
+      desc: 'Succeeding together through collaboration, trust, and shared ownership.'
+    },
+    {
+      title: 'Sustainability',
+      desc: 'Engineering a cleaner future, one solar-powered mile at a time.'
+    }
   ];
 
   const departments = [
-    { name: 'Mechanical', desc: 'Focuses on structural integrity, suspension, steering, and aerodynamics.' },
-    { name: 'Electrical', desc: 'Designs battery systems, motor controllers, and power distribution.' },
-    { name: 'Software', desc: 'Develops telemetry, driver interfaces, and data analysis tools.' },
-    { name: 'Business', desc: 'Manages sponsorships, outreach, finance, and logistics.' }
+    {
+      name: 'Mechanical',
+      desc: 'Structural integrity, suspension, steering, and aerodynamics.',
+      icon: 'M4.5 12a7.5 7.5 0 0 0 15 0m-15 0a7.5 7.5 0 1 1 15 0m-15 0H3m16.5 0H21m-1.5 0H12m-8.457 3.077 1.41-.513m14.095-5.13 1.41-.513M5.106 17.785l1.15-.964m11.49-9.642 1.149-.964M7.501 19.795l.75-1.3m7.5-12.99.75-1.3m-6.063 16.658.26-1.477m2.605-14.772.26-1.477m0 17.726-.26-1.477M10.698 4.614l-.26-1.477M16.5 19.794l-.75-1.299M7.5 4.205 12 12m6.894 5.785-1.149-.964M6.256 7.178l-1.15-.964m15.352 8.864-1.41-.513M4.954 9.435l-1.41-.514M12.002 12l-3.75 6.495'
+    },
+    {
+      name: 'Electrical',
+      desc: 'Battery systems, motor controllers, and power distribution.',
+      icon: 'M3.75 13.5 14.25 2.25 12 10.5h8.25L9.75 21.75 12 13.5H3.75Z'
+    },
+    {
+      name: 'Software',
+      desc: 'Telemetry, driver interfaces, and data analysis tools.',
+      icon: 'M17.25 6.75 22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3-4.5 16.5'
+    },
+    {
+      name: 'Business',
+      desc: 'Sponsorships, outreach, finance, and logistics.',
+      icon: 'M2.25 18 9 11.25l4.306 4.306a11.95 11.95 0 0 1 5.814-5.518l2.74-1.22m0 0-5.94-2.281m5.94 2.28-2.28 5.941'
+    }
   ];
 </script>
 
 <svelte:head>
-  <title>About Us | Westwood Solar Car</title>
+  <title>About | Westwood Solar Car</title>
+  <meta
+    name="description"
+    content="Westwood Solar Car is a crucible for future engineers, a student-led team competing in the national Solar Car Challenge since 2020."
+  />
 </svelte:head>
 
-<section class="section">
-  <div class="container page-header animate-fade-in">
-    <h1 class="title">Our <span class="text-accent">Story</span></h1>
-    <p class="subtitle">High school engineering excellence driven by passion and innovation.</p>
+<section class="page-hero">
+  <div class="container">
+    <span class="eyebrow">About the team</span>
+    <h1>Built by students, driven by the sun.</h1>
+    <p class="lead">
+      Westwood Solar Car is more than a high school racing team. It's a crucible for future
+      engineers, innovators, and leaders.
+    </p>
   </div>
 </section>
 
-<section class="section section-darker">
-  <div class="container">
-    <div class="two-column">
-      <div class="text-content" use:fadeUp>
-        <h2>Vision & Values</h2>
-        <p>Westwood Solar Car is more than just a high school racing team. We are a crucible for future engineers, innovators, and leaders.</p>
-        <p>Our mission is to push the boundaries of sustainable transportation while providing students with unparalleled hands-on experience in design, manufacturing, and project management to compete in the Solar Car Challenge.</p>
-        <ul class="values-list mt-sm">
-          <li><strong>Innovation:</strong> Constantly seeking better, more efficient solutions.</li>
-          <li><strong>Excellence:</strong> Demanding the highest quality in every component.</li>
-          <li><strong>Teamwork:</strong> Succeeding together through collaboration and trust.</li>
-          <li><strong>Sustainability:</strong> Engineering a cleaner future.</li>
-        </ul>
-      </div>
-      <div class="image-content" use:fadeUp>
-        <img src="https://placehold.co/600x600/333333/a0a0a5?text=Team+Working" alt="Team Working" class="rounded-img" />
-      </div>
+<section class="section">
+  <div class="container mission-grid">
+    <div class="mission-copy" use:fadeUp>
+      <span class="eyebrow">Our mission</span>
+      <h2>Hands-on engineering, from first sketch to finish line.</h2>
+      <p>
+        We push the boundaries of sustainable transportation while giving students unparalleled
+        hands-on experience in design, manufacturing, and project management, all in pursuit of
+        the national Solar Car Challenge.
+      </p>
     </div>
-  </div>
-</section>
-
-<section class="section">
-  <div class="container">
-    <h2 class="text-center mb-lg" use:fadeUp>Team <span class="text-accent">History</span></h2>
-    <div class="timeline">
-      {#each timeline as item}
-        <div class="timeline-item" use:fadeUp>
-          <div class="timeline-year">{item.year}</div>
-          <div class="timeline-content">
-            <h3>{item.event}</h3>
-            <p>{item.desc}</p>
-          </div>
+    <div class="values-grid">
+      {#each values as value, i}
+        <div class="panel value-card" use:fadeUp={{ delay: i * 70 }}>
+          <h3>{value.title}</h3>
+          <p>{value.desc}</p>
         </div>
       {/each}
     </div>
   </div>
 </section>
 
-<section class="section section-darker">
+<section class="section section-alt">
   <div class="container">
-    <h2 class="text-center mb-lg" use:fadeUp>What We <span class="text-accent">Do</span></h2>
+    <div class="section-head" use:fadeUp>
+      <span class="eyebrow">Departments</span>
+      <h2>Four teams, one car.</h2>
+    </div>
+
     <div class="departments-grid">
-      {#each departments as dept}
-        <div use:fadeUp>
-          <Card title={dept.name} class="dept-card">
-            <p>{dept.desc}</p>
-          </Card>
-        </div>
+      {#each departments as dept, i}
+        <article class="panel dept-card" use:fadeUp={{ delay: i * 70 }}>
+          <span class="icon-chip">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d={dept.icon} />
+            </svg>
+          </span>
+          <h3>{dept.name}</h3>
+          <p>{dept.desc}</p>
+        </article>
       {/each}
     </div>
   </div>
 </section>
 
 <style>
-  .page-header {
-    text-align: center;
-    max-width: 800px;
-    margin: 0 auto;
-  }
-
-  .title {
-    margin-bottom: var(--spacing-sm);
-  }
-
-  .subtitle {
-    font-size: 1.25rem;
-    color: var(--text-secondary);
-  }
-
-  .two-column {
+  .mission-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: var(--spacing-xl);
-    align-items: center;
+    grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+    gap: var(--space-xl);
+    align-items: start;
   }
 
-  @media (max-width: 768px) {
-    .two-column {
+  @media (max-width: 860px) {
+    .mission-grid {
       grid-template-columns: 1fr;
-      gap: var(--spacing-md);
+      gap: var(--space-lg);
     }
   }
 
-  .values-list {
-    list-style: none;
+  .mission-copy h2 {
+    margin-bottom: var(--space-sm);
   }
 
-  .values-list li {
-    margin-bottom: 0.5rem;
-    color: var(--text-secondary);
+  .mission-copy p {
+    max-width: 36em;
   }
 
-  .values-list strong {
-    color: var(--text-primary);
+  .values-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-sm);
   }
 
-  .rounded-img {
-    width: 100%;
-    border-radius: 4px;
-    border: 1px solid var(--border-strong);
-  }
-
-  .timeline {
-    max-width: 800px;
-    margin: 0 auto;
-    position: relative;
-  }
-
-  .timeline::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 120px;
-    width: 2px;
-    background-color: var(--border-strong);
-  }
-
-  @media (max-width: 600px) {
-    .timeline::before {
-      left: 20px;
+  @media (max-width: 520px) {
+    .values-grid {
+      grid-template-columns: 1fr;
     }
   }
 
-  .timeline-item {
-    display: flex;
-    margin-bottom: var(--spacing-lg);
-    position: relative;
+  .value-card {
+    padding: var(--space-md);
   }
 
-  .timeline-year {
-    width: 120px;
-    flex-shrink: 0;
-    font-weight: 800;
-    font-size: 1.5rem;
-    color: var(--accent-orange);
-    padding-right: var(--spacing-md);
-    text-align: right;
+  .value-card h3 {
+    font-size: 1.0625rem;
+    margin-bottom: var(--space-2xs);
+    color: var(--accent-text);
   }
 
-  @media (max-width: 600px) {
-    .timeline-item {
-      flex-direction: column;
-    }
-    .timeline-year {
-      width: auto;
-      text-align: left;
-      padding-left: 40px;
-      margin-bottom: var(--spacing-xs);
-    }
-  }
-
-  .timeline-content {
-    flex-grow: 1;
-    padding-left: var(--spacing-md);
-    position: relative;
-  }
-
-  @media (max-width: 600px) {
-    .timeline-content {
-      padding-left: 40px;
-    }
-  }
-
-  .timeline-content::before {
-    content: '';
-    position: absolute;
-    top: 8px;
-    left: -6px;
-    width: 14px;
-    height: 14px;
-    border-radius: 50%;
-    background-color: var(--accent-orange);
-    box-shadow: 0 0 0 4px var(--bg-main);
-  }
-
-  @media (max-width: 600px) {
-    .timeline-content::before {
-      left: 14px;
-      top: -35px;
-    }
-  }
-
-  .timeline-content h3 {
-    margin-bottom: var(--spacing-xs);
+  .value-card p {
+    font-size: 0.9rem;
+    line-height: 1.6;
   }
 
   .departments-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: var(--spacing-md);
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: var(--space-md);
   }
 
-  :global(.dept-card) {
-    height: 100%;
+  .dept-card h3 {
+    margin: var(--space-md) 0 var(--space-2xs);
+  }
+
+  .dept-card p {
+    font-size: 0.9375rem;
+    line-height: 1.6;
   }
 </style>
