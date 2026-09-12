@@ -1,89 +1,120 @@
-const memberImageMap: Record<string, string> = {
-  ishaan: '/team-images/ishaan.png',
-  jackson: '/team-images/jackson.png',
-  lucas: '/team-images/lucas.jpeg',
-  owen: '/team-images/owen.png',
-  samuel: '/team-images/samuel.png'
+export const site = {
+  name: 'Westwood Solar Car',
+  school: 'Westwood High School',
+  city: 'Austin, Texas',
+  competition: 'Solar Car Challenge',
+  venue: 'Texas Motor Speedway',
+  email: 'westwoodsolarcar@gmail.com',
+  /** Full Instagram URL. Leave empty to hide the link. */
+  instagram: ''
 };
 
-const getMemberImage = (name: string) => {
-  const firstName = name.trim().split(/\s+/)[0].toLowerCase().replace(/[^a-z0-9]/g, '');
-
-  return memberImageMap[firstName] ?? '/team-images/placeholder.svg';
+const memberImages: Record<string, string> = {
+  ishaan: '/team-images/ishaan.jpg',
+  jackson: '/team-images/jackson.jpg',
+  kylie: '/team-images/kylie.jpg',
+  lucas: '/team-images/lucas.jpg',
+  owen: '/team-images/owen.jpg',
+  samuel: '/team-images/samuel.jpg'
 };
 
-export const teamMembers = [
-  { name: 'Jackson', position: 'Finance/Fundraising/Build/Driver', category: 'Finance & Ops', image: getMemberImage('Jackson') },
-  { name: 'Ishaan', position: 'Finance/Fundraising', category: 'Finance & Ops', image: getMemberImage('Ishaan') },
-  { name: 'Samuel', position: 'Electrical/Design/Build/Data', category: 'Electrical', image: getMemberImage('Samuel') },
-  { name: 'Owen', position: 'Design/CAD/Build/Driver', category: 'Design & CAD', image: getMemberImage('Owen') },
-  { name: 'Ehan', position: 'CAD/Build', category: 'Design & CAD', image: getMemberImage('Ehan') },
-  { name: 'Shiv', position: 'Electrical/Design/CAD', category: 'Electrical', image: getMemberImage('Shiv') },
-  { name: 'Kylie', position: 'CAD/Build/Data', category: 'Design & CAD', image: getMemberImage('Kylie') },
-  { name: 'Aaron', position: 'Electrical/Design/Data/Driver', category: 'Electrical', image: getMemberImage('Aaron') },
-  { name: 'Carter', position: 'Build/Design', category: 'Build', image: getMemberImage('Carter') },
-  { name: 'Lucas', position: 'Design/CAD/Build', category: 'Design & CAD', image: getMemberImage('Lucas') },
-  { name: 'Benny', position: 'Electrical/Data', category: 'Electrical', image: getMemberImage('Benny') },
-  { name: 'Peiyi', position: 'Electrical/Data/CAD', category: 'Electrical', image: getMemberImage('Peiyi') },
-  { name: 'Joshua', position: 'Build/Design', category: 'Build', image: getMemberImage('Joshua') },
-  { name: 'Alyna', position: 'Finance/Fundraising', category: 'Finance & Ops', image: getMemberImage('Alyna') }
+const imageFor = (name: string): string | null => {
+  const key = name.trim().split(/\s+/)[0].toLowerCase().replace(/[^a-z0-9]/g, '');
+  return memberImages[key] ?? null;
+};
+
+export type TeamMember = {
+  name: string;
+  roles: string[];
+  category: string;
+  image: string | null;
+};
+
+const member = (name: string, roles: string, category: string): TeamMember => ({
+  name,
+  roles: roles.split('/'),
+  category,
+  image: imageFor(name)
+});
+
+export const teamMembers: TeamMember[] = [
+  member('Jackson', 'Finance/Fundraising/Build/Driver', 'Finance & Ops'),
+  member('Ishaan', 'Finance/Fundraising', 'Finance & Ops'),
+  member('Samuel', 'Electrical/Design/Build/Data', 'Electrical'),
+  member('Owen', 'Design/CAD/Build/Driver', 'Design & CAD'),
+  member('Ehan', 'CAD/Build', 'Design & CAD'),
+  member('Shiv', 'Electrical/Design/CAD', 'Electrical'),
+  member('Kylie', 'CAD/Build/Data', 'Design & CAD'),
+  member('Aaron', 'Electrical/Design/Data/Driver', 'Electrical'),
+  member('Carter', 'Build/Design', 'Build'),
+  member('Lucas', 'Design/CAD/Build', 'Design & CAD'),
+  member('Benny', 'Electrical/Data', 'Electrical'),
+  member('Peiyi', 'Electrical/Data/CAD', 'Electrical'),
+  member('Joshua', 'Build/Design', 'Build'),
+  member('Alyna', 'Finance/Fundraising', 'Finance & Ops')
+];
+
+/** Display order for roster groups. Anything not listed is appended alphabetically. */
+export const teamCategoryOrder = ['Design & CAD', 'Electrical', 'Build', 'Finance & Ops'];
+
+/**
+ * Specifications for the car.
+ *
+ * Every value starts empty on purpose: the car is still being designed, and the
+ * numbers that used to sit here were placeholders nobody on the team had agreed to.
+ * Fill a value in and its row appears on the car page. Leave it empty and the row
+ * stays hidden, and the page says the specs are not settled yet.
+ */
+export const carSpecs: { label: string; value: string }[] = [
+  { label: 'Competition class', value: '' },
+  { label: 'Weight', value: '' },
+  { label: 'Length', value: '' },
+  { label: 'Width', value: '' },
+  { label: 'Motor', value: '' },
+  { label: 'Battery', value: '' },
+  { label: 'Solar array', value: '' }
+];
+
+/** What the team is actually working on right now. Edit freely as things change. */
+export const buildAreas = [
+  {
+    name: 'Chassis and body',
+    body: 'Frame layout, roll cage, and the shape of the body shell. This is where most of the CAD work is going.'
+  },
+  {
+    name: 'Solar array',
+    body: 'Choosing cells, working out how many fit inside the size limits, and how they mount to the body.'
+  },
+  {
+    name: 'Battery and electrical',
+    body: 'Pack layout, wiring, fusing, and the safety systems the competition requires before a car can run.'
+  },
+  {
+    name: 'Driver controls',
+    body: 'Steering, brakes, seating, and visibility, all of which have to pass inspection.'
+  }
 ];
 
 export const sponsorTiers = [
   {
-    name: 'Platinum',
-    range: '$2,500+',
-    featured: true,
-    summary: 'Premier visibility across the car, website, and every competition presentation.',
-    benefits: [
-      'Large logo on the solar car',
-      'Premier website placement',
-      'Featured in all team media',
-      'Team presentation access',
-      'Dedicated sponsor report',
-      'Event tickets & recognition'
-    ]
-  },
-  {
-    name: 'Gold',
-    range: '$1,000 – $2,499',
-    featured: false,
-    summary: 'Prominent recognition across team materials, the website, and competition events.',
-    benefits: [
-      'Medium logo on the solar car',
-      'Website recognition',
-      'Social media feature',
-      'Competition recognition',
-      'Sponsor update report'
-    ]
+    name: 'Bronze',
+    amount: '$100+',
+    gets: 'Your name on this page and a thank-you post from the team.'
   },
   {
     name: 'Silver',
-    range: '$500 – $999',
-    featured: false,
-    summary: 'Recognition on the website and in all season-end materials and presentations.',
-    benefits: [
-      'Logo on team materials',
-      'Website recognition',
-      'Social media mention',
-      'Season-end report'
-    ]
+    amount: '$500+',
+    gets: 'Your logo on this page and on the team shirt.'
   },
   {
-    name: 'Bronze',
-    range: '$100 – $499',
-    featured: false,
-    summary: 'Website recognition and acknowledgment in team materials and communications.',
-    benefits: ['Website recognition', 'Thank-you acknowledgment', 'Season-end mention']
+    name: 'Gold',
+    amount: '$1,000+',
+    gets: 'Everything above, plus your logo on the car.'
+  },
+  {
+    name: 'Platinum',
+    amount: '$2,500+',
+    gets: 'Everything above, with the largest logo on the car and top placement here.',
+    featured: true
   }
 ];
-
-export const carSpecs = {
-  name: 'WSC-26 "Helios"',
-  weight: '185 kg',
-  dimensions: '4.5m × 1.8m × 1.0m',
-  powertrain: 'Custom 1.5kW Hub Motor',
-  battery: '5kWh Lithium-Ion Pack',
-  topSpeed: '110 km/h',
-  materials: 'Carbon Fiber Monocoque, Aerospace-grade Aluminum'
-};

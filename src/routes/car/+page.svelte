@@ -1,154 +1,90 @@
 <script lang="ts">
-  import CarSilhouette from '$lib/components/CarSilhouette.svelte';
-  import { carSpecs } from '$lib/data';
-  import { fadeUp } from '$lib/actions/scrollAnimation';
+  import { carSpecs, buildAreas } from '$lib/data';
 
-  const specsList = [
-    { label: 'Weight', value: carSpecs.weight },
-    { label: 'Dimensions', value: carSpecs.dimensions },
-    { label: 'Powertrain', value: carSpecs.powertrain },
-    { label: 'Battery', value: carSpecs.battery },
-    { label: 'Top speed', value: carSpecs.topSpeed },
-    { label: 'Materials', value: carSpecs.materials }
-  ];
-
-  const highlights = [
-    {
-      title: 'Aerodynamic optimization',
-      desc: 'Extensive CFD simulation shaped a teardrop canopy that cuts drag by 20% over our previous model. Every watt saved is speed gained.',
-      icon: 'M3.75 12h16.5M3.75 6.75h10.5a3 3 0 1 1 0 6M3.75 17.25h7.5a3 3 0 1 0 0-6'
-    },
-    {
-      title: 'Custom battery management',
-      desc: 'A student-built BMS monitors individual cell temperatures and voltages in real time, maximizing efficiency while keeping the pack safe.',
-      icon: 'M21 10.5h.375c.621 0 1.125.504 1.125 1.125v1.5c0 .621-.504 1.125-1.125 1.125H21M3.75 18h15A2.25 2.25 0 0 0 21 15.75v-6a2.25 2.25 0 0 0-2.25-2.25h-15A2.25 2.25 0 0 0 1.5 9.75v6A2.25 2.25 0 0 0 3.75 18ZM10.5 9.75 8.25 12.75h4.5l-2.25 3'
-    },
-    {
-      title: 'Carbon fiber monocoque',
-      desc: 'The entire chassis is aerospace-grade carbon fiber, for extreme weight reduction with no compromise in structural integrity.',
-      icon: 'M3.75 3.75v4.5m0-4.5h4.5m-4.5 0L9 9M3.75 20.25v-4.5m0 4.5h4.5m-4.5 0L9 15M20.25 3.75h-4.5m4.5 0v4.5m0-4.5L15 9m5.25 11.25h-4.5m4.5 0v-4.5m0 4.5L15 15'
-    }
-  ];
+  const known = carSpecs.filter((spec) => spec.value.trim() !== '');
 </script>
 
 <svelte:head>
-  <title>The Car: {carSpecs.name} | Westwood Solar Car</title>
+  <title>The car &middot; Westwood Solar Car</title>
   <meta
     name="description"
-    content="{carSpecs.name}: a {carSpecs.weight} carbon fiber solar race car with a {carSpecs.powertrain} and a top speed of {carSpecs.topSpeed}."
+    content="The car Westwood Solar Car is designing for its first Solar Car Challenge, and what the team is working on right now."
   />
 </svelte:head>
 
-<section class="page-hero car-hero">
+<section class="page-hero">
   <div class="container">
-    <span class="eyebrow">Introducing</span>
-    <h1>{carSpecs.name}</h1>
+    <p class="label">The car</p>
+    <h1>Still being designed.</h1>
     <p class="lead">
-      The pinnacle of student-led automotive engineering. Faster, lighter, and more efficient
-      than anything we've built before.
+      We are a first-year team and the car is not built yet. Rather than put a rendering and a
+      set of invented numbers here, this page says what we are working on. It gets replaced
+      with photographs and measured specifications once there is a car to photograph.
     </p>
-    <div class="hero-visual" use:fadeUp>
-      <CarSilhouette />
-    </div>
   </div>
 </section>
 
 <section class="section">
   <div class="container">
-    <div class="section-head" use:fadeUp>
-      <span class="eyebrow">Technical specifications</span>
-      <h2>Engineered down to the gram.</h2>
-      <p>
-        Every component of {carSpecs.name} was designed to extract maximum performance from the
-        sun's energy.
-      </p>
+    <div class="section-head">
+      <h2>What we are working on</h2>
     </div>
 
-    <dl class="specs-grid">
-      {#each specsList as spec, i}
-        <div class="spec-row" use:fadeUp={{ delay: i * 50 }}>
-          <dt>{spec.label}</dt>
-          <dd>{spec.value}</dd>
-        </div>
-      {/each}
-    </dl>
-  </div>
-</section>
-
-<section class="section section-alt">
-  <div class="container">
-    <div class="section-head" use:fadeUp>
-      <span class="eyebrow">Engineering highlights</span>
-      <h2>Where the performance comes from.</h2>
-    </div>
-
-    <div class="highlights-grid">
-      {#each highlights as highlight, i}
-        <article class="panel highlight-card" use:fadeUp={{ delay: i * 80 }}>
-          <span class="icon-chip">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d={highlight.icon} />
-            </svg>
-          </span>
-          <h3>{highlight.title}</h3>
-          <p>{highlight.desc}</p>
+    <div class="cells areas">
+      {#each buildAreas as area}
+        <article class="cell">
+          <h3>{area.name}</h3>
+          <p>{area.body}</p>
         </article>
       {/each}
     </div>
   </div>
 </section>
 
+<section class="section">
+  <div class="container narrow">
+    <div class="section-head">
+      <h2>Specifications</h2>
+    </div>
+
+    {#if known.length}
+      <table class="spec-table">
+        <tbody>
+          {#each known as spec}
+            <tr>
+              <th scope="row">{spec.label}</th>
+              <td>{spec.value}</td>
+            </tr>
+          {/each}
+        </tbody>
+      </table>
+    {:else}
+      <p>
+        Nothing to publish yet. Weight, dimensions, motor, battery, and array size all depend
+        on decisions the team has not finished making, and we would rather leave this empty
+        than guess. Check back.
+      </p>
+    {/if}
+  </div>
+</section>
+
 <style>
-  .car-hero .hero-visual {
-    max-width: 760px;
-    margin-top: var(--space-xl);
+  /* Keep the page's left edge, limit only the line length. */
+  .narrow {
+    max-width: var(--max);
   }
 
-  .specs-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 0 var(--space-xl);
-    max-width: 900px;
+  .narrow > * {
+    max-width: 44em;
   }
 
-  .spec-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    gap: var(--space-md);
-    padding: var(--space-sm) 0;
-    border-bottom: 1px solid var(--border);
+  .areas {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  .spec-row dt {
-    font-size: 0.8125rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: var(--text-faint);
-    flex-shrink: 0;
-  }
-
-  .spec-row dd {
-    font-family: var(--font-display);
-    font-weight: 600;
-    font-size: 1.0625rem;
-    color: var(--text);
-    text-align: right;
-  }
-
-  .highlights-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: var(--space-md);
-  }
-
-  .highlight-card h3 {
-    margin: var(--space-md) 0 var(--space-xs);
-  }
-
-  .highlight-card p {
-    font-size: 0.9375rem;
-    line-height: 1.65;
+  @media (max-width: 640px) {
+    .areas {
+      grid-template-columns: 1fr;
+    }
   }
 </style>

@@ -1,85 +1,67 @@
-@import url('https://fonts.cdnfonts.com/css/glacial-indifference-2');
+/* ==========================================================================
+   Westwood Solar Car — global styles
+   Type: Barlow Condensed (display) / Barlow (body) / IBM Plex Mono (labels)
+   ========================================================================== */
 
 :root {
-  /* ---------- Color: dark (default) ---------- */
-  --bg: #0b0c0e;
-  --bg-alt: #101214;
-  --surface: #15181c;
-  --surface-raised: #1b1f24;
-  --nav-bg: rgba(11, 12, 14, 0.85);
+  /* Paper & ink (light) */
+  --paper: #f4f2ed;
+  --paper-2: #eae7df;
+  --ink: #141413;
+  --ink-2: #4b4a47;
+  --ink-3: #85837d;
+  --rule: #cfccc3;
 
-  --text: #f2f3f4;
-  --text-muted: #a7adb4;
-  --text-faint: #757c84;
+  /* Signal colour */
+  --sun: #ff5c00;
+  --sun-ink: #c24300;
+  --on-sun: #141413;
 
-  --border: rgba(255, 255, 255, 0.08);
-  --border-strong: rgba(255, 255, 255, 0.16);
+  /* Type */
+  --font-display: 'Barlow Condensed', 'Arial Narrow', 'Helvetica Neue', Arial, sans-serif;
+  --font-body: 'Barlow', 'Helvetica Neue', Arial, sans-serif;
+  --font-mono: 'IBM Plex Mono', 'SF Mono', Menlo, Consolas, monospace;
 
-  --accent: #f97316;
-  --accent-hover: #fb923c;
-  --on-accent: #171007;
-  --accent-soft: rgba(249, 115, 22, 0.12);
-  --accent-text: #fb923c;
+  /* Layout */
+  --max: 1200px;
+  --gutter: clamp(1.25rem, 4vw, 2.5rem);
+  --nav-h: 64px;
 
-  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
-  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.35);
+  --s-1: 0.25rem;
+  --s-2: 0.5rem;
+  --s-3: 0.75rem;
+  --s-4: 1rem;
+  --s-5: 1.5rem;
+  --s-6: 2rem;
+  --s-7: 3rem;
+  --s-8: 4rem;
+  --s-9: 6rem;
+  --section: clamp(3.5rem, 7vw, 6rem);
 
-  /* ---------- Typography ---------- */
-  --font-display: 'Glacial Indifference', 'Space Grotesk', 'Segoe UI', system-ui, sans-serif;
-  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
-
-  /* ---------- Layout ---------- */
-  --max-width: 1160px;
-  --nav-height: 72px;
-
-  --space-2xs: 0.25rem;
-  --space-xs: 0.5rem;
-  --space-sm: 1rem;
-  --space-md: 1.5rem;
-  --space-lg: 2.5rem;
-  --space-xl: 4rem;
-  --space-section: clamp(4rem, 9vw, 6.5rem);
-
-  --radius-sm: 8px;
-  --radius-md: 12px;
-  --radius-lg: 20px;
-  --radius-full: 999px;
-
-  /* ---------- Motion ---------- */
-  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
-  --transition-fast: 0.15s var(--ease-out);
-  --transition-base: 0.25s var(--ease-out);
-
-  color-scheme: dark;
-}
-
-[data-theme='light'] {
-  --bg: #fafaf9;
-  --bg-alt: #f3f2f0;
-  --surface: #ffffff;
-  --surface-raised: #ffffff;
-  --nav-bg: rgba(250, 250, 249, 0.88);
-
-  --text: #1b1e21;
-  --text-muted: #4d545b;
-  --text-faint: #7d848c;
-
-  --border: rgba(20, 22, 24, 0.1);
-  --border-strong: rgba(20, 22, 24, 0.2);
-
-  --accent: #c2410c;
-  --accent-hover: #9a3412;
-  --on-accent: #ffffff;
-  --accent-soft: rgba(194, 65, 12, 0.09);
-  --accent-text: #c2410c;
-
-  --shadow-sm: 0 1px 2px rgba(20, 22, 24, 0.06);
-  --shadow-md: 0 8px 24px rgba(20, 22, 24, 0.08);
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --t: 0.18s var(--ease);
 
   color-scheme: light;
 }
 
-/* ---------- Reset & base ---------- */
+[data-theme='dark'] {
+  --paper: #121211;
+  --paper-2: #1a1a18;
+  --ink: #f1efe9;
+  --ink-2: #b4b1a9;
+  --ink-3: #7b7973;
+  --rule: #2e2d2a;
+
+  --sun: #ff5c00;
+  --sun-ink: #ff7a2e;
+  --on-sun: #141413;
+
+  color-scheme: dark;
+}
+
+/* --------------------------------------------------------------------------
+   Reset
+   -------------------------------------------------------------------------- */
 *,
 *::before,
 *::after {
@@ -90,21 +72,20 @@
 
 html {
   font-family: var(--font-body);
-  color: var(--text);
-  background-color: var(--bg);
-  line-height: 1.6;
+  line-height: 1.5;
+  color: var(--ink);
+  background: var(--paper);
   -webkit-font-smoothing: antialiased;
-  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
   min-height: 100vh;
-  margin: 0;
   display: flex;
   flex-direction: column;
-  background-color: var(--bg);
-  color: var(--text);
-  font-size: 1rem;
+  font-size: 1.0625rem;
+  color: var(--ink);
+  background: var(--paper);
 }
 
 main {
@@ -113,238 +94,280 @@ main {
 
 img,
 svg {
+  display: block;
   max-width: 100%;
-  display: block;
-}
-
-/* ---------- Typography ---------- */
-h1,
-h2,
-h3,
-h4 {
-  font-family: var(--font-display);
-  font-weight: 600;
-  line-height: 1.1;
-  letter-spacing: -0.02em;
-  color: var(--text);
-  text-wrap: balance;
-}
-
-h1 {
-  font-size: clamp(2.5rem, 6vw, 4.25rem);
-  font-weight: 700;
-  letter-spacing: -0.03em;
-}
-
-h2 {
-  font-size: clamp(1.75rem, 3.5vw, 2.5rem);
-}
-
-h3 {
-  font-size: 1.25rem;
-  line-height: 1.3;
-}
-
-p {
-  color: var(--text-muted);
-}
-
-.lead {
-  font-size: clamp(1.125rem, 1.8vw, 1.3125rem);
-  line-height: 1.55;
-  max-width: 38em;
-}
-
-.eyebrow {
-  display: block;
-  font-size: 0.8125rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.14em;
-  color: var(--accent-text);
-  margin-bottom: var(--space-sm);
 }
 
 a {
   color: inherit;
   text-decoration: none;
-  transition: color var(--transition-fast);
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+table {
+  border-collapse: collapse;
 }
 
 ::selection {
-  background: var(--accent);
-  color: var(--on-accent);
+  background: var(--sun);
+  color: var(--on-sun);
 }
 
 :focus-visible {
-  outline: 2px solid var(--accent);
-  outline-offset: 3px;
-  border-radius: 2px;
+  outline: 2px solid var(--sun);
+  outline-offset: 2px;
 }
 
-/* ---------- Layout ---------- */
+/* --------------------------------------------------------------------------
+   Type
+   -------------------------------------------------------------------------- */
+h1,
+h2,
+h3,
+.display {
+  font-family: var(--font-display);
+  font-weight: 700;
+  line-height: 1.05;
+  color: var(--ink);
+}
+
+h1 {
+  font-size: clamp(2.25rem, 5vw, 3.5rem);
+  letter-spacing: -0.01em;
+}
+
+h2 {
+  font-size: clamp(1.625rem, 3vw, 2.25rem);
+}
+
+h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+p {
+  color: var(--ink-2);
+}
+
+.lead {
+  font-size: 1.125rem;
+  line-height: 1.5;
+  max-width: 34em;
+  color: var(--ink);
+}
+
+.mono {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.label {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+
+/* --------------------------------------------------------------------------
+   Layout
+   -------------------------------------------------------------------------- */
 .container {
   width: 100%;
-  max-width: var(--max-width);
+  max-width: var(--max);
   margin: 0 auto;
-  padding: 0 clamp(1.25rem, 4vw, 2rem);
+  padding: 0 var(--gutter);
 }
 
 .section {
-  padding: var(--space-section) 0;
+  padding: var(--section) 0;
+  border-top: 1px solid var(--rule);
 }
 
-.section-alt {
-  background-color: var(--bg-alt);
-  border-top: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
+.section--alt {
+  background: var(--paper-2);
 }
 
 .section-head {
-  max-width: 640px;
-  margin-bottom: var(--space-lg);
+  margin-bottom: var(--s-7);
 }
 
-.section-head.centered {
-  margin-left: auto;
-  margin-right: auto;
-  text-align: center;
+.section-head .label {
+  margin-bottom: var(--s-3);
+}
+
+.section-head h2 {
+  max-width: 18em;
 }
 
 .section-head p {
-  margin-top: var(--space-sm);
+  margin-top: var(--s-4);
+  max-width: 40em;
+  font-size: 1.125rem;
 }
 
-/* ---------- Subpage hero ---------- */
+/* Subpage header */
 .page-hero {
-  padding: calc(var(--space-section) * 0.9) 0 calc(var(--space-section) * 0.7);
-  border-bottom: 1px solid var(--border);
+  padding: var(--s-8) 0;
+}
+
+.page-hero .label {
+  margin-bottom: var(--s-3);
 }
 
 .page-hero h1 {
-  max-width: 14em;
+  max-width: 16em;
 }
 
 .page-hero .lead {
-  margin-top: var(--space-md);
+  margin-top: var(--s-5);
 }
 
-/* ---------- Buttons ---------- */
+/* Open columns: one rule above each, content hanging below. No enclosing boxes. */
+.cells {
+  display: grid;
+  gap: var(--s-7) var(--s-6);
+}
+
+.cell {
+  min-width: 0;
+  padding-top: var(--s-4);
+  border-top: 1px solid var(--ink);
+}
+
+.cell h3 {
+  margin-bottom: var(--s-2);
+}
+
+.cell p:not(.idx) {
+  font-size: 1rem;
+  line-height: 1.55;
+  max-width: 34em;
+}
+
+/* --------------------------------------------------------------------------
+   Buttons
+   -------------------------------------------------------------------------- */
 .btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 0.5rem;
-  min-height: 48px;
-  padding: 0.75rem 1.75rem;
+  gap: 0.6rem;
+  min-height: 44px;
+  padding: 0.7rem 1.25rem;
   font-family: var(--font-body);
+  font-size: 0.9375rem;
   font-weight: 600;
-  font-size: 1rem;
   line-height: 1;
-  border: 1px solid transparent;
-  border-radius: var(--radius-full);
-  cursor: pointer;
+  color: var(--ink);
+  border: 1px solid var(--ink);
+  border-radius: 2px;
   white-space: nowrap;
   transition:
-    background-color var(--transition-fast),
-    border-color var(--transition-fast),
-    color var(--transition-fast),
-    transform var(--transition-fast);
-}
-
-.btn:active {
-  transform: scale(0.98);
+    background-color var(--t),
+    color var(--t),
+    border-color var(--t);
 }
 
 .btn-primary {
-  background-color: var(--accent);
-  color: var(--on-accent);
+  background: var(--ink);
+  color: var(--paper);
 }
 
 .btn-primary:hover {
-  background-color: var(--accent-hover);
-  color: var(--on-accent);
+  background: var(--sun);
+  border-color: var(--sun);
+  color: var(--on-sun);
+}
+
+.btn-accent {
+  background: var(--sun);
+  border-color: var(--sun);
+  color: var(--on-sun);
+}
+
+.btn-accent:hover {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--paper);
 }
 
 .btn-outline {
-  background-color: transparent;
-  color: var(--text);
-  border-color: var(--border-strong);
+  background: transparent;
 }
 
 .btn-outline:hover {
-  border-color: var(--accent);
-  color: var(--text);
+  background: var(--ink);
+  color: var(--paper);
 }
 
-/* ---------- Cards ---------- */
-.panel {
-  background-color: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  padding: var(--space-lg);
-  transition: border-color var(--transition-base), transform var(--transition-base);
+.btn-sm {
+  min-height: 38px;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
 }
 
-.panel:hover {
-  border-color: var(--border-strong);
+/* --------------------------------------------------------------------------
+   Spec table
+   -------------------------------------------------------------------------- */
+.spec-table {
+  width: 100%;
 }
 
-/* ---------- Icon chip ---------- */
-.icon-chip {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 44px;
-  height: 44px;
-  border-radius: var(--radius-md);
-  background: var(--accent-soft);
-  color: var(--accent-text);
-  flex-shrink: 0;
+.spec-table th,
+.spec-table td {
+  padding: var(--s-3) 0;
+  border-bottom: 1px solid var(--rule);
+  text-align: left;
+  vertical-align: baseline;
 }
 
-.icon-chip svg {
-  width: 22px;
-  height: 22px;
+.spec-table tr:first-child th,
+.spec-table tr:first-child td {
+  border-top: 1px solid var(--rule);
 }
 
-/* ---------- Scroll reveal ---------- */
-.fade-up-element {
-  opacity: 0;
-  transform: translateY(18px);
-  transition: opacity 0.55s var(--ease-out), transform 0.55s var(--ease-out);
-  transition-delay: var(--reveal-delay, 0s);
+.spec-table th {
+  width: 38%;
+  padding-right: var(--s-4);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-2);
 }
 
-.fade-up-element.in-view {
-  opacity: 1;
-  transform: translateY(0);
+.spec-table td {
+  font-size: 1rem;
+  color: var(--ink);
 }
 
+/* --------------------------------------------------------------------------
+   Motion
+   -------------------------------------------------------------------------- */
 @media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
-
-  .fade-up-element {
-    opacity: 1;
-    transform: none;
-    transition: none;
-  }
-
   *,
   *::before,
   *::after {
-    animation-duration: 0.01ms !important;
     transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
   }
-}
-
-/* ---------- Utilities ---------- */
-.text-center {
-  text-align: center;
-}
-
-.text-accent {
-  color: var(--accent-text);
 }

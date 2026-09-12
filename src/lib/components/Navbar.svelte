@@ -2,26 +2,21 @@
   import { onMount } from 'svelte';
   import { page } from '$app/state';
 
-  let isScrolled = $state(false);
-  let isMobileMenuOpen = $state(false);
-  let theme = $state('dark');
+  let open = $state(false);
+  let theme = $state<'light' | 'dark'>('light');
 
   onMount(() => {
-    theme = document.documentElement.getAttribute('data-theme') ?? 'dark';
-
-    const handleScroll = () => {
-      isScrolled = window.scrollY > 12;
-    };
-
-    handleScroll();
-    window.addEventListener('scroll', handleScroll, { passive: true });
-
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
+    const current = document.documentElement.getAttribute('data-theme');
+    theme = current === 'dark' ? 'dark' : 'light';
   });
 
-  const navLinks = [
+  // Close the drawer whenever the route changes.
+  $effect(() => {
+    void page.url.pathname;
+    open = false;
+  });
+
+  const links = [
     { name: 'About', path: '/about' },
     { name: 'Team', path: '/team' },
     { name: 'The Car', path: '/car' },
@@ -31,270 +26,234 @@
   function toggleTheme() {
     theme = theme === 'dark' ? 'light' : 'dark';
     document.documentElement.setAttribute('data-theme', theme);
-    localStorage.setItem('theme', theme);
+    try {
+      localStorage.setItem('theme', theme);
+    } catch {
+      /* private mode */
+    }
   }
 
-  function closeMobileMenu() {
-    isMobileMenuOpen = false;
-  }
+  const isActive = (path: string) => page.url.pathname === path;
 </script>
 
-<header class="navbar" class:scrolled={isScrolled || isMobileMenuOpen}>
-  <div class="container nav-container">
-    <a href="/" class="logo" onclick={closeMobileMenu} aria-label="Westwood Solar Car home">
-      <svg viewBox="0 0 32 32" width="30" height="30" aria-hidden="true">
-        <circle cx="16" cy="13" r="5" fill="var(--accent)" />
-        <g stroke="var(--accent)" stroke-width="2" stroke-linecap="round">
-          <line x1="16" y1="3.5" x2="16" y2="5.5" />
-          <line x1="23.4" y1="5.6" x2="22" y2="7" />
-          <line x1="8.6" y1="5.6" x2="10" y2="7" />
-          <line x1="25.5" y1="13" x2="23.5" y2="13" />
-          <line x1="8.5" y1="13" x2="6.5" y2="13" />
-        </g>
-        <path
-          d="M5 24.5 Q16 20.5 27 24.5"
-          stroke="currentColor"
-          stroke-width="2.5"
-          fill="none"
-          stroke-linecap="round"
-        />
+<header class="nav">
+  <div class="container row">
+    <a href="/" class="mark" aria-label="Westwood Solar Car home">
+      <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
+        <circle cx="12" cy="10" r="7" fill="var(--sun)" />
+        <rect x="2" y="19" width="20" height="2" fill="currentColor" />
       </svg>
-      <span class="logo-text">Westwood <em>Solar Car</em></span>
+      <span>Westwood <b>Solar Car</b></span>
     </a>
 
-    <nav class="nav-links" aria-label="Primary">
-      {#each navLinks as link}
-        <a href={link.path} class="nav-link" class:active={page.url.pathname === link.path}>
-          {link.name}
-        </a>
+    <nav class="links" aria-label="Primary">
+      {#each links as link}
+        <a href={link.path} aria-current={isActive(link.path) ? 'page' : undefined}>{link.name}</a>
       {/each}
     </nav>
 
-    <div class="nav-actions">
+    <div class="actions">
       <button
-        class="theme-toggle"
+        class="theme"
         onclick={toggleTheme}
-        aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+        aria-label={theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme'}
+        title={theme === 'dark' ? 'Light theme' : 'Dark theme'}
       >
         {#if theme === 'dark'}
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" aria-hidden="true">
             <circle cx="12" cy="12" r="4" />
-            <path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" />
+            <path d="M12 3v2M12 19v2M3 12h2M19 12h2M5.6 5.6l1.4 1.4M17 17l1.4 1.4M5.6 18.4 7 17M17 7l1.4-1.4" />
           </svg>
         {:else}
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z" />
           </svg>
         {/if}
       </button>
 
-      <a href="/contact" class="btn btn-primary btn-nav">Contact</a>
+      <a href="/contact" class="btn btn-primary btn-sm contact">Contact</a>
 
       <button
-        class="hamburger"
-        onclick={() => (isMobileMenuOpen = !isMobileMenuOpen)}
-        aria-label="Toggle menu"
-        aria-expanded={isMobileMenuOpen}
+        class="burger"
+        onclick={() => (open = !open)}
+        aria-label={open ? 'Close menu' : 'Open menu'}
+        aria-expanded={open}
+        aria-controls="mobile-menu"
       >
-        <span class="hamburger-line" class:open={isMobileMenuOpen}></span>
-        <span class="hamburger-line" class:open={isMobileMenuOpen}></span>
-        <span class="hamburger-line" class:open={isMobileMenuOpen}></span>
+        <span class:open></span>
+        <span class:open></span>
       </button>
     </div>
   </div>
 
-  {#if isMobileMenuOpen}
-    <nav class="mobile-menu" aria-label="Primary mobile">
-      {#each navLinks as link}
-        <a
-          href={link.path}
-          class="mobile-nav-link"
-          class:active={page.url.pathname === link.path}
-          onclick={closeMobileMenu}
-        >
-          {link.name}
-        </a>
+  {#if open}
+    <nav id="mobile-menu" class="drawer" aria-label="Primary">
+      {#each links as link}
+        <a href={link.path} aria-current={isActive(link.path) ? 'page' : undefined}>{link.name}</a>
       {/each}
-      <a href="/contact" class="mobile-nav-link" onclick={closeMobileMenu}>Contact</a>
+      <a href="/contact" aria-current={isActive('/contact') ? 'page' : undefined}>Contact</a>
     </nav>
   {/if}
 </header>
 
 <style>
-  .navbar {
-    position: fixed;
+  .nav {
+    position: sticky;
     top: 0;
-    left: 0;
-    width: 100%;
-    height: var(--nav-height);
-    z-index: 100;
-    border-bottom: 1px solid transparent;
-    transition:
-      background-color var(--transition-base),
-      border-color var(--transition-base);
+    z-index: 50;
+    height: var(--nav-h);
+    background: var(--paper);
+    border-bottom: 1px solid var(--rule);
   }
 
-  .navbar.scrolled {
-    background-color: var(--nav-bg);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border-bottom-color: var(--border);
-  }
-
-  .nav-container {
+  .row {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    gap: var(--space-md);
+    justify-content: space-between;
+    gap: var(--s-5);
     height: 100%;
   }
 
-  .logo {
+  .mark {
     display: flex;
     align-items: center;
-    gap: 0.625rem;
-    color: var(--text);
-  }
-
-  .logo-text {
+    gap: 0.6rem;
     font-family: var(--font-display);
-    font-size: 1.0625rem;
-    font-weight: 700;
-    letter-spacing: 0.01em;
+    font-size: 1.375rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    line-height: 1;
     white-space: nowrap;
   }
 
-  .logo-text em {
-    font-style: normal;
-    color: var(--accent-text);
+  .mark b {
+    font-weight: 700;
   }
 
-  .nav-links {
+  .links {
     display: flex;
-    gap: 0.25rem;
+    gap: var(--s-5);
+    height: 100%;
   }
 
-  .nav-link {
-    font-size: 0.9375rem;
-    font-weight: 500;
-    color: var(--text-muted);
-    padding: 0.5rem 0.875rem;
-    border-radius: var(--radius-full);
-  }
-
-  .nav-link:hover {
-    color: var(--text);
-  }
-
-  .nav-link.active {
-    color: var(--text);
-    background: var(--accent-soft);
-  }
-
-  .nav-actions {
+  .links a {
     display: flex;
     align-items: center;
-    gap: 0.75rem;
+    height: var(--nav-h);
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-2);
+    border-bottom: 2px solid transparent;
+    transition: color var(--t);
   }
 
-  .theme-toggle {
+  .links a:hover {
+    color: var(--ink);
+  }
+
+  .links a[aria-current='page'] {
+    color: var(--ink);
+    border-bottom-color: var(--sun);
+  }
+
+  .actions {
+    display: flex;
+    align-items: center;
+    gap: var(--s-3);
+  }
+
+  .theme {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 44px;
-    height: 44px;
-    background: none;
-    border: none;
-    border-radius: var(--radius-full);
-    cursor: pointer;
-    color: var(--text-muted);
-    transition: color var(--transition-fast), background-color var(--transition-fast);
-  }
-
-  .theme-toggle:hover {
-    color: var(--text);
-    background: var(--accent-soft);
-  }
-
-  .btn-nav {
-    min-height: 40px;
-    padding: 0.5rem 1.25rem;
-    font-size: 0.9375rem;
-  }
-
-  .hamburger {
-    display: none;
-    flex-direction: column;
-    justify-content: center;
-    gap: 5px;
-    width: 44px;
-    height: 44px;
-    align-items: center;
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    padding: 0;
-  }
-
-  .hamburger-line {
-    width: 22px;
-    height: 2px;
-    background: var(--text);
+    width: 38px;
+    height: 38px;
+    color: var(--ink-2);
+    border: 1px solid var(--rule);
     border-radius: 2px;
-    transition: transform var(--transition-base), opacity var(--transition-base);
+    transition: color var(--t), border-color var(--t);
   }
 
-  .hamburger-line.open:first-child {
-    transform: translateY(7px) rotate(45deg);
+  .theme:hover {
+    color: var(--ink);
+    border-color: var(--ink);
   }
 
-  .hamburger-line.open:nth-child(2) {
-    opacity: 0;
-  }
-
-  .hamburger-line.open:nth-child(3) {
-    transform: translateY(-7px) rotate(-45deg);
-  }
-
-  .mobile-menu {
+  .burger {
     display: none;
+    position: relative;
+    width: 38px;
+    height: 38px;
+    border: 1px solid var(--ink);
+    border-radius: 2px;
+  }
+
+  .burger span {
     position: absolute;
-    top: var(--nav-height);
+    left: 9px;
+    width: 18px;
+    height: 2px;
+    background: var(--ink);
+    transition: transform var(--t);
+  }
+
+  .burger span:first-child {
+    top: 14px;
+  }
+
+  .burger span:last-child {
+    top: 22px;
+  }
+
+  .burger span.open:first-child {
+    transform: translateY(4px) rotate(45deg);
+  }
+
+  .burger span.open:last-child {
+    transform: translateY(-4px) rotate(-45deg);
+  }
+
+  .drawer {
+    position: absolute;
+    top: 100%;
     left: 0;
-    width: 100%;
-    background-color: var(--bg);
+    right: 0;
+    display: none;
     flex-direction: column;
-    padding: var(--space-sm) clamp(1.25rem, 4vw, 2rem) var(--space-md);
-    border-bottom: 1px solid var(--border);
+    background: var(--paper);
+    border-bottom: 1px solid var(--rule);
+    padding: 0 var(--gutter) var(--s-4);
   }
 
-  .mobile-nav-link {
-    font-size: 1.0625rem;
-    font-weight: 500;
-    color: var(--text-muted);
-    padding: 0.875rem 0;
-    border-bottom: 1px solid var(--border);
+  .drawer a {
+    padding: var(--s-4) 0;
+    font-family: var(--font-display);
+    font-size: 2rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    line-height: 1;
+    border-bottom: 1px solid var(--rule);
   }
 
-  .mobile-nav-link:last-child {
-    border-bottom: none;
-  }
-
-  .mobile-nav-link.active {
-    color: var(--accent-text);
+  .drawer a[aria-current='page'] {
+    color: var(--sun-ink);
   }
 
   @media (max-width: 820px) {
-    .nav-links,
-    .btn-nav {
+    .links,
+    .contact {
       display: none;
     }
 
-    .hamburger {
-      display: flex;
+    .burger {
+      display: block;
     }
 
-    .mobile-menu {
+    .drawer {
       display: flex;
     }
   }

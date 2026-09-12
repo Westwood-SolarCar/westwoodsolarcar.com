@@ -1,27 +1,33 @@
 <script lang="ts">
   import type { Snippet } from 'svelte';
 
-  let { 
-    variant = 'primary', 
+  let {
+    variant = 'primary',
+    size = 'md',
     href = undefined,
     type = 'button',
     class: className = '',
     children
-  }: { 
-    variant?: 'primary' | 'outline';
+  }: {
+    variant?: 'primary' | 'accent' | 'outline';
+    size?: 'md' | 'sm';
     href?: string;
     type?: 'button' | 'submit' | 'reset';
     class?: string;
     children?: Snippet;
   } = $props();
+
+  const classes = $derived(
+    ['btn', `btn-${variant}`, size === 'sm' ? 'btn-sm' : '', className].filter(Boolean).join(' ')
+  );
 </script>
 
 {#if href}
-  <a {href} class="btn btn-{variant} {className}">
+  <a {href} class={classes}>
     {@render children?.()}
   </a>
 {:else}
-  <button {type} class="btn btn-{variant} {className}">
+  <button {type} class={classes}>
     {@render children?.()}
   </button>
 {/if}
