@@ -2,9 +2,6 @@
   import Button from '$lib/components/Button.svelte';
   import { site, teamMembers } from '$lib/data';
 
-  /** Everyone who has sent in a photo. Drives the strip under the hero. */
-  const faces = teamMembers.filter((m) => m.image);
-
   const facts = [
     { label: 'Students', value: String(teamMembers.length) },
     { label: 'Season', value: 'First' },
@@ -65,16 +62,6 @@
     </div>
   </div>
 </section>
-
-<a class="strip" href="/team" aria-label="Meet the team">
-  {#each faces as member}
-    <img src={member.image} alt="" loading="lazy" decoding="async" />
-  {/each}
-</a>
-
-<div class="container strip-note">
-  <p class="label">Some of the team &middot; {teamMembers.length} students in total</p>
-</div>
 
 <section class="section">
   <div class="container">
@@ -184,34 +171,6 @@
     font-size: 1.375rem;
     font-weight: 600;
     color: var(--ink);
-  }
-
-  /* Full-bleed band of the real team photos. */
-  .strip {
-    display: grid;
-    grid-template-columns: repeat(6, minmax(0, 1fr));
-    gap: 1px;
-    background: var(--rule);
-    border-top: 1px solid var(--rule);
-    border-bottom: 1px solid var(--rule);
-  }
-
-  .strip img {
-    width: 100%;
-    aspect-ratio: 4 / 5;
-    object-fit: cover;
-    /* Faces sit high in these photos, so bias the crop upward. */
-    object-position: center 20%;
-  }
-
-  @media (max-width: 700px) {
-    .strip {
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-    }
-  }
-
-  .strip-note {
-    padding-top: var(--s-3);
   }
 
   .narrow {
