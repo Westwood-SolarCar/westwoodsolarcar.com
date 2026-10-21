@@ -10,16 +10,20 @@ export const site = {
 };
 
 const memberImages: Record<string, string> = {
-  ishaan: '/team-images/ishaan.jpg',
-  jackson: '/team-images/jackson.jpg',
-  kylie: '/team-images/kylie.jpg',
-  lucas: '/team-images/lucas.jpg',
-  owen: '/team-images/owen.jpg',
-  samuel: '/team-images/samuel.jpg'
+  ishaan_desai: '/team-images/ishaan.jpg',
+  kylie_xu: '/team-images/kylie.jpg',
+  lucas_xu: '/team-images/lucas.jpg',
+  owen_neal: '/team-images/owen.jpg',
+  samuel_hana: '/team-images/samuel.jpg'
 };
 
 const imageFor = (name: string): string | null => {
-  const key = name.trim().split(/\s+/)[0].toLowerCase().replace(/[^a-z0-9]/g, '');
+  const key = name
+  .trim()
+  .split(/\s+/)
+  .map((w) => w.toLowerCase().replace(/[^a-z0-9]/g, ''))
+  .filter(Boolean)
+  .join('_');
   return memberImages[key] ?? null;
 };
 
@@ -38,20 +42,18 @@ const member = (name: string, roles: string, category: string): TeamMember => ({
 });
 
 export const teamMembers: TeamMember[] = [
-  member('Jackson', 'Finance/Fundraising/Build/Driver', 'Finance & Ops'),
-  member('Ishaan', 'Finance/Fundraising', 'Finance & Ops'),
-  member('Samuel', 'Electrical/Design/Build/Data', 'Electrical'),
-  member('Owen', 'Design/CAD/Build/Driver', 'Design & CAD'),
-  member('Ehan', 'CAD/Build', 'Design & CAD'),
-  member('Shiv', 'Electrical/Design/CAD', 'Electrical'),
-  member('Kylie', 'CAD/Build/Data', 'Design & CAD'),
-  member('Aaron', 'Electrical/Design/Data/Driver', 'Electrical'),
-  member('Carter', 'Build/Design', 'Build'),
-  member('Lucas', 'Design/CAD/Build', 'Design & CAD'),
-  member('Benny', 'Electrical/Data', 'Electrical'),
-  member('Peiyi', 'Electrical/Data/CAD', 'Electrical'),
-  member('Joshua', 'Build/Design', 'Build'),
-  member('Alyna', 'Finance/Fundraising', 'Finance & Ops')
+  member('Ishaan Desai', 'Finance/Fundraising', 'Finance & Ops'),
+  member('Samuel Hana', 'Electrical/Design/Build/Data', 'Electrical'),
+  member('Owen Neal', 'Design/CAD/Build/Driver', 'Design & CAD'),
+  member('Ehan Maknoja', 'CAD/Build', 'Design & CAD'),
+  member('Kylie Xu', 'CAD/Build/Data', 'Design & CAD'),
+  member('Aaron Hua', 'Electrical/Design/Data/Driver', 'Electrical'),
+  member('Lucas Xu', 'Design/CAD/Build', 'Design & CAD'),
+  member('Benny Provost', 'Electrical/Data', 'Electrical'),
+  member('Peiyi Wang', 'Electrical/Data/CAD', 'Electrical'),
+  member('Joshua Hana', 'Build/Design', 'Build'),
+  member('Alyna Lee', 'Finance/Fundraising', 'Finance & Ops'),
+  member('Lucas Janssen', 'Data/Finance/Fundrasing', 'Finance & Ops')
 ];
 
 /** Display order for roster groups. Anything not listed is appended alphabetically. */

@@ -13,7 +13,7 @@ Nearly everything lives in one file: `src/lib/data.ts`.
 | --- | --- |
 | Email, school, city, competition | `site` |
 | Team roster, roles, groups | `teamMembers`, `teamCategoryOrder` |
-| Team photos | Add a JPEG to `static/team-images/` and list it in `memberImages`, keyed by first name in lowercase. Anyone without a photo gets an initials tile. |
+| Team photos | Add a JPEG to `static/team-images/` and list it in `memberImages`, keyed by firstname_lastname. Anyone without a photo gets an initials tile. |
 | Car specifications | `carSpecs` |
 | What the team is working on | `buildAreas` |
 | Sponsorship tiers | `sponsorTiers` |
