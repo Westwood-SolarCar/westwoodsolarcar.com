@@ -30,34 +30,33 @@ const imageFor = (name: string): string | null => {
 export type TeamMember = {
   name: string;
   roles: string[];
-  category: string;
+  bio: string;
   image: string | null;
 };
 
-const member = (name: string, roles: string, category: string): TeamMember => ({
+const member = (name: string, roles: string, bio = ''): TeamMember => ({
   name,
   roles: roles.split('/'),
-  category,
+  bio,
   image: imageFor(name)
 });
 
 export const teamMembers: TeamMember[] = [
-  member('Ishaan Desai', 'Finance/Fundraising', 'Finance & Ops'),
-  member('Samuel Hana', 'Electrical/Design/Build/Data', 'Electrical'),
-  member('Owen Neal', 'Design/CAD/Build/Driver', 'Design & CAD'),
-  member('Ehan Maknoja', 'CAD/Build', 'Design & CAD'),
-  member('Kylie Xu', 'CAD/Build/Data', 'Design & CAD'),
-  member('Aaron Hua', 'Electrical/Design/Data/Driver', 'Electrical'),
-  member('Lucas Xu', 'Design/CAD/Build', 'Design & CAD'),
-  member('Benny Provost', 'Electrical/Data', 'Electrical'),
-  member('Peiyi Wang', 'Electrical/Data/CAD', 'Electrical'),
-  member('Joshua Hana', 'Build/Design', 'Build'),
-  member('Alyna Lee', 'Finance/Fundraising', 'Finance & Ops'),
-  member('Lucas Janssen', 'Data/Finance/Fundrasing', 'Finance & Ops')
+  member('Ishaan Desai', 'Eletrical/Finance/Fundraising/Logistics'),
+  member('Samuel Hana', 'Build/Data/Design/Electrical'),
+  member('Owen Neal', 'Builder/CAD/Design/Driver'),
+  member('Ehan Maknoja', 'Build/CAD'),
+  member('Kylie Xu', 'Build/CAD/Data/Eletrical'),
+  member('Aaron Hua', 'Data/Design/Electrical'),
+  member('Lucas Xu', 'Build/CAD/Design'),
+  member('Benny Provost', 'Data/Electrical'),
+  member('Peiyi Wang', 'Build/CAD/Data/Eletrical'),
+  member('Joshua Hana', 'Build/Design'),
+  member('Alyna Lee', 'Finance/Fundraising'),
+  member('Lucas Janssen', 'Driver/Finance/Fundrasing/Logistics'),
+  member('Rohan Srivastava', 'Finance/Fundrasing'),
+  member('Joon Park', 'Build/Finance/Fundraising')
 ];
-
-/** Display order for roster groups. Anything not listed is appended alphabetically. */
-export const teamCategoryOrder = ['Design & CAD', 'Electrical', 'Build', 'Finance & Ops'];
 
 /**
  * Specifications for the car.

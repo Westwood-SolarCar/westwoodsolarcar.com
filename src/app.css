@@ -90,6 +90,7 @@ body {
 
 main {
   flex: 1;
+  margin-top: var(--s-4);
 }
 
 img,

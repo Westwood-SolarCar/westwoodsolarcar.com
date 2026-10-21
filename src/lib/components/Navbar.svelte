@@ -98,13 +98,13 @@
 
 <style>
   .nav {
-    position: sticky;
-    top: 0;
-    z-index: 50;
-    height: var(--nav-h);
-    background: var(--paper);
-    border-bottom: 1px solid var(--rule);
-  }
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  height: var(--nav-h);
+  background: var(--paper);
+  border-bottom: 1px solid var(--rule);
+}
 
   .row {
     display: flex;
